@@ -56,14 +56,12 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
         
         {/* Main breathing circle */}
         <div
-          className={cn(
-            'relative flex h-72 w-72 items-center justify-center rounded-full transition-all duration-1000 ease-in-out border-4',
-            config.scale
-          )}
+          className="relative flex h-72 w-72 items-center justify-center rounded-full transition-all duration-1000 ease-in-out border-4"
           style={{
             backgroundColor: config.color,
             borderColor: 'hsl(0 0% 24% / 0.7)',
             boxShadow: `0 0 40px ${config.color}40`,
+            transform: phase === 'inhale' || phase === 'hold' ? 'scale(1.1)' : 'scale(0.95)',
           }}
         >
           <div className="text-center">
