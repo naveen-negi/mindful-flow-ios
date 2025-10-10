@@ -105,7 +105,7 @@ const Practice = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between bg-background p-6 pb-safe pt-safe">
-      {!isActive && !isComplete && (
+      {!isActive && !isComplete && !isPausedBetweenRounds && (
         <div className="flex flex-col items-center justify-center flex-1 w-full">
           <Card className="border bg-card p-10 text-center max-w-md rounded-2xl" style={{ boxShadow: 'var(--shadow-card)' }}>
             <h2 className="text-2xl font-serif font-semibold mb-6 text-foreground">Ready to Begin</h2>
