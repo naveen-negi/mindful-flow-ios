@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
@@ -9,11 +10,22 @@ interface PointerViewProps {
 }
 
 const PointerView = ({ pointer, onContinue, currentRound, totalRounds }: PointerViewProps) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(timer);
+  }, [pointer]);
+
   return (
-    <div className="zen-texture flex min-h-screen flex-col items-center justify-between p-6 pb-safe pt-safe animate-in fade-in-50 duration-700">
+    <div className="zen-texture flex min-h-screen flex-col items-center justify-between p-6 pb-safe pt-safe">
       <div className="flex flex-col items-center justify-center flex-1 w-full max-w-md">
         {/* Round indicator */}
-        <div className="text-center mb-12 animate-in fade-in-50 duration-500">
+        <div 
+          className={`text-center mb-12 transition-all duration-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
           <div className="text-xs font-sans text-muted-foreground mb-1 uppercase tracking-wider">Round</div>
           <div className="text-2xl font-serif font-semibold text-primary">
             {currentRound + 1} / {totalRounds}
@@ -21,10 +33,14 @@ const PointerView = ({ pointer, onContinue, currentRound, totalRounds }: Pointer
         </div>
 
         {/* Enso circle with pointer text */}
-        <div className="relative w-full max-w-md flex items-center justify-center">
+        <div 
+          className={`relative w-full max-w-md flex items-center justify-center transition-all duration-1000 ${
+            isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          }`}
+        >
           {/* Hand-drawn enso circle */}
           <div 
-            className="absolute w-[400px] h-[400px] rounded-full pointer-events-none animate-in fade-in-50 duration-700"
+            className="absolute w-[400px] h-[400px] rounded-full pointer-events-none"
             style={{
               border: '3px solid rgba(60, 60, 60, 0.15)',
               borderTopColor: 'transparent',
@@ -35,7 +51,9 @@ const PointerView = ({ pointer, onContinue, currentRound, totalRounds }: Pointer
           
           {/* Pointer text centered */}
           <p 
-            className="text-center font-serif leading-relaxed z-10 px-12 animate-in fade-in-50 duration-1000"
+            className={`text-center font-serif leading-relaxed z-10 px-12 transition-all duration-1200 delay-300 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
             style={{
               fontSize: 'clamp(1.35rem, 4vw, 1.75rem)',
               lineHeight: '1.8',
@@ -48,7 +66,11 @@ const PointerView = ({ pointer, onContinue, currentRound, totalRounds }: Pointer
         </div>
 
         {/* Continue button */}
-        <div className="mt-12 animate-in fade-in-50 duration-700">
+        <div 
+          className={`mt-12 transition-all duration-700 delay-500 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
           <Button
             onClick={onContinue}
             variant="default"

@@ -49,6 +49,63 @@ export const useBreathingTimer = (
     }
   }, []);
 
+  const playDoubleBeep = useCallback(() => {
+    try {
+      const audioContext = new AudioContext();
+      
+      // First beep
+      const oscillator1 = audioContext.createOscillator();
+      const gainNode1 = audioContext.createGain();
+      oscillator1.connect(gainNode1);
+      gainNode1.connect(audioContext.destination);
+      oscillator1.frequency.value = 600;
+      oscillator1.type = 'sine';
+      gainNode1.gain.setValueAtTime(0, audioContext.currentTime);
+      gainNode1.gain.linearRampToValueAtTime(0.4, audioContext.currentTime + 0.05);
+      gainNode1.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.15);
+      oscillator1.start(audioContext.currentTime);
+      oscillator1.stop(audioContext.currentTime + 0.15);
+
+      // Second beep
+      const oscillator2 = audioContext.createOscillator();
+      const gainNode2 = audioContext.createGain();
+      oscillator2.connect(gainNode2);
+      gainNode2.connect(audioContext.destination);
+      oscillator2.frequency.value = 600;
+      oscillator2.type = 'sine';
+      gainNode2.gain.setValueAtTime(0, audioContext.currentTime + 0.2);
+      gainNode2.gain.linearRampToValueAtTime(0.4, audioContext.currentTime + 0.25);
+      gainNode2.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.35);
+      oscillator2.start(audioContext.currentTime + 0.2);
+      oscillator2.stop(audioContext.currentTime + 0.35);
+    } catch (error) {
+      console.log('Audio not available');
+    }
+  }, []);
+
+  const playSingleBeep = useCallback(() => {
+    try {
+      const audioContext = new AudioContext();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      oscillator.frequency.value = 500;
+      oscillator.type = 'sine';
+
+      gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.05);
+      gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.2);
+
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.2);
+    } catch (error) {
+      console.log('Audio not available');
+    }
+  }, []);
+
   const triggerHaptic = useCallback(async (phase: BreathPhase) => {
     if (!hapticEnabled) return;
 
@@ -104,9 +161,9 @@ export const useBreathingTimer = (
     phaseDurationRef.current = nextDuration;
     phaseStartTimeRef.current = Date.now();
     
-    playPhaseSound(nextPhase);
+    playSingleBeep();
     triggerHaptic(nextPhase);
-  }, [currentPhase, currentRound, rounds, ratio, playPhaseSound, triggerHaptic]);
+  }, [currentPhase, currentRound, rounds, ratio, playSingleBeep, triggerHaptic]);
 
   const continueToNextRound = useCallback(() => {
     setCurrentRound(prev => prev + 1);
@@ -116,9 +173,9 @@ export const useBreathingTimer = (
     setTimeRemaining(ratio.inhale);
     phaseDurationRef.current = ratio.inhale;
     phaseStartTimeRef.current = Date.now();
-    playPhaseSound('inhale');
+    playDoubleBeep();
     triggerHaptic('inhale');
-  }, [ratio, playPhaseSound, triggerHaptic]);
+  }, [ratio, playDoubleBeep, triggerHaptic]);
 
   useEffect(() => {
     if (!isActive) {
@@ -156,9 +213,9 @@ export const useBreathingTimer = (
     setIsComplete(false);
     phaseDurationRef.current = ratio.inhale;
     phaseStartTimeRef.current = Date.now();
-    playPhaseSound('inhale');
+    playDoubleBeep();
     triggerHaptic('inhale');
-  }, [ratio, playPhaseSound, triggerHaptic]);
+  }, [ratio, playDoubleBeep, triggerHaptic]);
 
   const pause = useCallback(() => {
     setIsActive(false);

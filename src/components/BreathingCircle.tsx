@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { BreathPhase } from '@/types/breathing';
 import { cn } from '@/lib/utils';
 
@@ -8,7 +9,16 @@ interface BreathingCircleProps {
 }
 
 const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCircleProps) => {
+  const [isVisible, setIsVisible] = useState(false);
   const progress = totalTime > 0 ? (timeRemaining / totalTime) * 100 : 0;
+
+  // Trigger fade-in animation when phase changes
+  useEffect(() => {
+    setIsVisible(false);
+    const timer = setTimeout(() => setIsVisible(true), 50);
+    return () => clearTimeout(timer);
+  }, [phase]);
+  
   
   const phaseConfig = {
     inhale: {
@@ -64,7 +74,12 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
             transform: phase === 'inhale' || phase === 'hold' ? 'scale(1.1)' : 'scale(0.95)',
           }}
         >
-          <div className="text-center animate-in fade-in-50 duration-700">
+          <div 
+            className={cn(
+              "text-center transition-opacity duration-1000",
+              isVisible ? "opacity-100" : "opacity-0"
+            )}
+          >
             <div className="text-7xl font-serif font-semibold" style={{ color: '#f8f6f1' }}>
               {timeRemaining}
             </div>

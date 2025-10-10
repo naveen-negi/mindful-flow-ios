@@ -13,6 +13,9 @@ const Home = () => {
   const settings = getSettings();
   const [inhale, setInhale] = useState(settings.defaultRatio.inhale);
   const [rounds, setRounds] = useState(10);
+  const [showCustomInput, setShowCustomInput] = useState(false);
+
+  const presetDurations = [4, 6, 8, 10, 12, 15, 18];
 
   useEffect(() => {
     const onboardingComplete = localStorage.getItem("onboardingComplete");
@@ -53,26 +56,55 @@ const Home = () => {
           
           <div className="space-y-4">
             <div>
-              <Label htmlFor="inhale" className="text-foreground">
+              <Label htmlFor="inhale" className="text-foreground mb-3 block">
                 Inhale Duration (seconds)
               </Label>
-              <p className="text-xs text-muted-foreground mb-2">
+              <p className="text-xs text-muted-foreground mb-3">
                 Hold and exhale will adjust automatically (1:4:2 ratio)
               </p>
-              <Input
-                id="inhale"
-                type="number"
-                min="1"
-                max="20"
-                value={inhale}
-                onChange={(e) => {
-                  const value = Number(e.target.value);
-                  if (value >= 1 && value <= 20) {
-                    setInhale(value);
-                  }
-                }}
-                className="mt-2 border-primary/30 bg-background/50 text-foreground text-lg font-semibold"
-              />
+              
+              {/* Preset buttons */}
+              <div className="grid grid-cols-4 gap-2 mb-3">
+                {presetDurations.map((duration) => (
+                  <Button
+                    key={duration}
+                    onClick={() => {
+                      setInhale(duration);
+                      setShowCustomInput(false);
+                    }}
+                    variant={inhale === duration && !showCustomInput ? "default" : "outline"}
+                    className="h-12 text-base font-semibold"
+                  >
+                    {duration}s
+                  </Button>
+                ))}
+                <Button
+                  onClick={() => setShowCustomInput(true)}
+                  variant={showCustomInput ? "default" : "outline"}
+                  className="h-12 text-sm font-semibold"
+                >
+                  Custom
+                </Button>
+              </div>
+
+              {/* Custom input */}
+              {showCustomInput && (
+                <Input
+                  id="inhale"
+                  type="number"
+                  min="1"
+                  max="30"
+                  value={inhale}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    if (value >= 1 && value <= 30) {
+                      setInhale(value);
+                    }
+                  }}
+                  className="border-primary/30 bg-background/50 text-foreground text-lg font-semibold"
+                  placeholder="Enter custom duration"
+                />
+              )}
             </div>
 
             <div className="rounded-xl bg-muted/30 p-5 border border-foreground/5">
