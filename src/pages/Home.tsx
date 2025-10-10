@@ -88,20 +88,6 @@ const Home = () => {
               </div>
             </div>
 
-            <div>
-              <Label htmlFor="rounds" className="text-foreground">
-                Number of Rounds
-              </Label>
-              <Input
-                id="rounds"
-                type="number"
-                min="1"
-                max="50"
-                value={rounds}
-                onChange={(e) => setRounds(Number(e.target.value))}
-                className="mt-2 border-primary/30 bg-background/50 text-foreground"
-              />
-            </div>
 
             <div className="rounded-xl border border-accent/20 bg-accent/5 p-4">
               <p className="text-sm text-muted-foreground font-sans">

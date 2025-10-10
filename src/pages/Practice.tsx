@@ -170,25 +170,6 @@ const Practice = () => {
             totalTime={totalPhaseTime}
           />
 
-          <div className="w-full space-y-3 mt-8">
-            <Button
-              onClick={isPaused ? handleResume : handlePause}
-              className="w-full py-6 text-lg font-medium rounded-xl"
-              variant="secondary"
-            >
-              {isPaused ? (
-                <>
-                  <Play className="mr-2 h-5 w-5" />
-                  Resume
-                </>
-              ) : (
-                <>
-                  <Pause className="mr-2 h-5 w-5" />
-                  Pause
-                </>
-              )}
-            </Button>
-          </div>
         </div>
       )}
 
