@@ -17,7 +17,6 @@ const Onboarding = () => {
   const handleNext = () => {
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1);
-      window.scrollTo(0, 0);
     } else {
       localStorage.setItem("onboardingComplete", "true");
       navigate("/");
@@ -611,31 +610,35 @@ const Onboarding = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
-      <div className="container max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 pb-20">
-        {/* Progress bar */}
-        <div className="mb-4 sm:mb-8">
+    <div className="h-screen flex flex-col bg-background overflow-hidden">
+      {/* Fixed header with progress */}
+      <div className="flex-shrink-0 border-b bg-background px-4 py-3 sm:py-4">
+        <div className="container max-w-4xl mx-auto">
           <div className="flex justify-between items-center mb-2">
             <span className="text-xs sm:text-sm font-medium">Step {currentStep + 1} of {totalSteps}</span>
-            <Button variant="ghost" size="sm" onClick={handleSkip} className="text-xs sm:text-sm">
+            <Button variant="ghost" size="sm" onClick={handleSkip} className="text-xs sm:text-sm h-8">
               Skip
             </Button>
           </div>
           <Progress value={progress} className="h-2" />
         </div>
+      </div>
 
-        {/* Current step content */}
-        <div className="mb-4 sm:mb-8 overflow-y-auto max-h-[calc(100vh-180px)]">
+      {/* Scrollable content area */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="container max-w-4xl mx-auto px-4 py-4 sm:py-6 pb-24">
           {steps[currentStep]}
         </div>
+      </div>
 
-        {/* Navigation buttons */}
-        <div className="fixed bottom-0 left-0 right-0 bg-background border-t p-3 sm:p-4 flex justify-between items-center gap-3">
+      {/* Fixed navigation buttons */}
+      <div className="flex-shrink-0 border-t bg-background px-4 py-3 sm:py-4">
+        <div className="container max-w-4xl mx-auto flex justify-between items-center gap-3">
           <Button
             variant="outline"
             onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
             disabled={currentStep === 0}
-            className="flex-1 sm:flex-initial"
+            className="flex-1 sm:flex-initial min-w-[100px]"
           >
             Previous
           </Button>
@@ -643,7 +646,7 @@ const Onboarding = () => {
           <Button
             onClick={handleNext}
             disabled={currentStep === 4 && !safetyAcknowledged}
-            className="flex-1 sm:flex-initial"
+            className="flex-1 sm:flex-initial min-w-[100px]"
           >
             {currentStep === totalSteps - 1 ? "Start Practicing" : "Next"}
           </Button>
