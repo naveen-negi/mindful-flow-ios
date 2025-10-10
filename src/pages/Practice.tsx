@@ -24,6 +24,8 @@ const Practice = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [shownPointerIndices, setShownPointerIndices] = useState<number[]>([]);
   const [currentPointer, setCurrentPointer] = useState<string>('');
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const [isCountingDown, setIsCountingDown] = useState(false);
 
   const {
     isActive,
@@ -53,6 +55,22 @@ const Practice = () => {
       navigate('/');
     }
   }, [location.state, navigate]);
+
+  // Countdown effect
+  useEffect(() => {
+    if (isCountingDown && countdown !== null) {
+      if (countdown > 0) {
+        const timer = setTimeout(() => {
+          setCountdown(countdown - 1);
+        }, 1000);
+        return () => clearTimeout(timer);
+      } else {
+        setIsCountingDown(false);
+        setCountdown(null);
+        start();
+      }
+    }
+  }, [countdown, isCountingDown, start]);
 
   useEffect(() => {
     if (isComplete) {
@@ -93,6 +111,11 @@ const Practice = () => {
     navigate('/');
   };
 
+  const handleStartCountdown = () => {
+    setCountdown(5);
+    setIsCountingDown(true);
+  };
+
   const totalPhaseTime = 
     currentPhase === 'inhale' ? ratio.inhale :
     currentPhase === 'hold' ? ratio.hold :
@@ -104,7 +127,21 @@ const Practice = () => {
 
   return (
     <div className="zen-texture flex min-h-screen flex-col items-center justify-between p-6 pb-safe pt-safe">
-      {!isActive && !isComplete && !isPausedBetweenRounds && (
+      {/* Countdown screen */}
+      {isCountingDown && countdown !== null && (
+        <div className="flex flex-col items-center justify-center flex-1 w-full">
+          <div className="text-center animate-in fade-in-50 duration-300">
+            <div className="text-9xl font-serif font-bold text-primary mb-4 animate-in zoom-in-50 duration-500">
+              {countdown}
+            </div>
+            <p className="text-xl text-muted-foreground font-sans">
+              Get ready...
+            </p>
+          </div>
+        </div>
+      )}
+
+      {!isActive && !isComplete && !isPausedBetweenRounds && !isCountingDown && (
         <div className="flex flex-col items-center justify-center flex-1 w-full">
           <Card className="border bg-card p-10 text-center max-w-md rounded-2xl" style={{ boxShadow: 'var(--shadow-card)' }}>
             <h2 className="text-2xl font-serif font-semibold mb-6 text-foreground">Ready to Begin</h2>
@@ -118,7 +155,7 @@ const Practice = () => {
               </div>
             </div>
             <Button
-              onClick={start}
+              onClick={handleStartCountdown}
               className="w-full py-6 text-lg font-medium rounded-xl"
             >
               <Play className="mr-2 h-5 w-5" />
