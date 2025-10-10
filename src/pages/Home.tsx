@@ -19,7 +19,7 @@ const Home = () => {
     if (!onboardingComplete) {
       navigate("/onboarding");
     }
-  }, [navigate]);
+  }, []);
 
   const ratio: BreathingRatio = {
     inhale,
