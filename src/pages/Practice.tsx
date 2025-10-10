@@ -38,7 +38,7 @@ const Practice = () => {
     pause,
     resume,
     reset,
-    continueToNextRound,
+    startNextRound,
   } = useBreathingTimer(ratio, rounds, settings.hapticEnabled);
 
   // Show pointer when paused between rounds
@@ -67,10 +67,15 @@ const Practice = () => {
       } else {
         setIsCountingDown(false);
         setCountdown(null);
-        start();
+        // Check if we're starting fresh or continuing from pointer
+        if (isPausedBetweenRounds) {
+          startNextRound();
+        } else {
+          start();
+        }
       }
     }
-  }, [countdown, isCountingDown, start]);
+  }, [countdown, isCountingDown, start, startNextRound, isPausedBetweenRounds]);
 
   useEffect(() => {
     if (isComplete) {
@@ -112,6 +117,11 @@ const Practice = () => {
   };
 
   const handleStartCountdown = () => {
+    setCountdown(5);
+    setIsCountingDown(true);
+  };
+
+  const handleContinueFromPointer = () => {
     setCountdown(5);
     setIsCountingDown(true);
   };
@@ -165,10 +175,10 @@ const Practice = () => {
         </div>
       )}
 
-      {isPausedBetweenRounds && (
+      {isPausedBetweenRounds && !isCountingDown && (
         <PointerView
           pointer={currentPointer}
-          onContinue={continueToNextRound}
+          onContinue={handleContinueFromPointer}
           currentRound={currentRound}
           totalRounds={rounds}
         />

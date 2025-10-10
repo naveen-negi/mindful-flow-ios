@@ -165,7 +165,7 @@ export const useBreathingTimer = (
     triggerHaptic(nextPhase);
   }, [currentPhase, currentRound, rounds, ratio, playSingleBeep, triggerHaptic]);
 
-  const continueToNextRound = useCallback(() => {
+  const startNextRound = useCallback(() => {
     setCurrentRound(prev => prev + 1);
     setIsPausedBetweenRounds(false);
     setIsActive(true);
@@ -253,6 +253,6 @@ export const useBreathingTimer = (
     pause,
     resume,
     reset,
-    continueToNextRound,
+    startNextRound,
   };
 };
