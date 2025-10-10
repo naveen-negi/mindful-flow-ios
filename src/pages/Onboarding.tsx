@@ -15,7 +15,7 @@ const Onboarding = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
 
-  const totalSteps = 7;
+  const totalSteps = 3;
   const progress = ((currentStep + 1) / totalSteps) * 100;
 
   const handleNext = () => {
@@ -33,114 +33,30 @@ const Onboarding = () => {
   };
 
   const steps = [
-    // Step 0: Welcome
+    // Step 0: Welcome + What is 1:4:2
     <div key="welcome" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
-      <img src={welcomeImage} alt="Welcome" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
-      <div className="text-center space-y-3">
-        <h1 className="text-3xl sm:text-4xl font-bold">Welcome</h1>
-        <p className="text-base sm:text-lg font-semibold px-2">
+      <img src={welcomeImage} alt="Welcome to 1:4:2 Breathing" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
+      <div className="text-center space-y-4">
+        <h1 className="text-3xl sm:text-4xl font-bold">Welcome to 1:4:2</h1>
+        <p className="text-base sm:text-lg font-semibold">
           A 500-year-old breathing practice<br />for calm and awareness
         </p>
-        <p className="text-sm text-muted-foreground italic px-2">
-          From the Hatha Yoga Pradipika (15th century)
-        </p>
-      </div>
-    </div>,
-
-    // Step 1: What is 1:4:2
-    <div key="what-is" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
-      <img src={ratioImage} alt="Sacred Ratio" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
-      <div className="text-center space-y-3">
-        <h1 className="text-3xl sm:text-4xl font-bold">The Sacred Ratio</h1>
-        <div className="text-5xl sm:text-6xl font-bold my-4">1 : 4 : 2</div>
-        <div className="text-lg space-y-1">
-          <p><span className="font-semibold">1</span> Inhale</p>
-          <p><span className="font-semibold">4</span> Hold</p>
-          <p><span className="font-semibold">2</span> Exhale</p>
+        
+        <div className="bg-secondary/30 p-6 rounded-2xl space-y-3">
+          <div className="text-4xl sm:text-5xl font-bold">1 : 4 : 2</div>
+          <div className="text-base space-y-1">
+            <p><span className="font-semibold">1</span> Inhale</p>
+            <p><span className="font-semibold">4</span> Hold</p>
+            <p><span className="font-semibold">2</span> Exhale</p>
+          </div>
+          <p className="text-sm text-muted-foreground italic pt-2">
+            Example: Inhale 5s → Hold 20s → Exhale 10s
+          </p>
         </div>
       </div>
-
-      <Card className="max-w-2xl mx-auto">
-        <CardContent className="pt-6 space-y-3">
-          <div className="bg-secondary/50 p-4 rounded-lg">
-            <p className="font-semibold mb-2">Example:</p>
-            <p className="text-sm">Inhale 5s → Hold 20s → Exhale 10s</p>
-          </div>
-          <p className="text-sm text-muted-foreground italic">
-            Peak gas exchange during retention activates deep relaxation
-          </p>
-        </CardContent>
-      </Card>
     </div>,
 
-    // Step 2: Ancient Tradition
-    <div key="tradition" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
-      <img src={traditionImage} alt="Ancient Tradition" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
-      <div className="text-center space-y-3">
-        <h1 className="text-3xl font-bold">Ancient Tradition</h1>
-        <p className="text-base text-muted-foreground">500+ years of wisdom</p>
-      </div>
-
-      <div className="max-w-2xl mx-auto space-y-3">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Gheranda Samhita (1600s)</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="italic text-sm">"The 1:4:2 ratio for advanced practitioners"</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Today</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm">1,400+ studies validate the benefits</p>
-          </CardContent>
-        </Card>
-      </div>
-    </div>,
-
-    // Step 3: The Science
-    <div key="science" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
-      <img src={scienceImage} alt="The Science" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
-      <div className="text-center space-y-3">
-        <h1 className="text-3xl font-bold">The Science</h1>
-        <p className="text-base text-muted-foreground">Ancient wisdom meets research</p>
-      </div>
-
-      <div className="max-w-2xl mx-auto space-y-3">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">🫁 Peak Oxygen Exchange</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm">Breath retention triggers oxygen release</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">🧠 Activates Calm Mode</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm">Shifts from stress to relaxation in minutes</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">😌 Proven Effective</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm">Better than meditation (Stanford, 2023)</p>
-          </CardContent>
-        </Card>
-      </div>
-    </div>,
-
-    // Step 4: How to Practice
+    // Step 1: How to Practice
     <div key="practice" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
       <img src={practiceImage} alt="How to Practice" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
       <div className="text-center space-y-3">
@@ -178,71 +94,31 @@ const Onboarding = () => {
       </div>
     </div>,
 
-    // Step 5: Progression Levels
-    <div key="progression" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
-      <img src={progressionImage} alt="Your Journey" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
-      <div className="text-center space-y-3">
-        <h1 className="text-3xl font-bold">Your Journey</h1>
-        <p className="text-base text-muted-foreground">Progress at your own pace</p>
-      </div>
-
-      <div className="max-w-2xl mx-auto space-y-3">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Start: Beginner</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center py-1">
-              <div className="text-2xl font-bold">4 : 16 : 8</div>
-              <p className="text-xs text-muted-foreground mt-1">28 second cycle</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="pt-4">
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between py-1">
-                <span>Developing</span>
-                <span className="text-muted-foreground">5:20:10</span>
-              </div>
-              <div className="flex justify-between py-1">
-                <span>Intermediate</span>
-                <span className="text-muted-foreground">6:24:12</span>
-              </div>
-              <div className="flex justify-between py-1">
-                <span>Advanced</span>
-                <span className="text-muted-foreground">10:40:20</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>,
-
-    // Step 6: Ready to Begin
+    // Step 2: Ready to Begin
     <div key="ready" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
       <img src={readyImage} alt="You're Ready" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-bold">You're Ready</h1>
-        <p className="text-base text-muted-foreground max-w-xl mx-auto">
+        <p className="text-base text-muted-foreground">
           Begin your pranayama practice
         </p>
 
+        <div className="bg-secondary/30 p-6 rounded-2xl space-y-3">
+          <p className="font-semibold">Start: Beginner Level</p>
+          <div className="text-3xl font-bold">4 : 16 : 8</div>
+          <p className="text-sm text-muted-foreground">28 second cycle</p>
+          <p className="text-xs text-muted-foreground italic pt-2">
+            Progress naturally to longer cycles as you build capacity
+          </p>
+        </div>
+
         <Card className="max-w-2xl mx-auto">
           <CardContent className="pt-4 space-y-2 text-sm">
-            <p>✓ Start beginner level (4:16:8)</p>
             <p>✓ Practice on empty stomach</p>
             <p>✓ Never force the breath</p>
             <p>✓ Stop if uncomfortable</p>
           </CardContent>
         </Card>
-
-        <div className="max-w-xl mx-auto bg-secondary/30 p-4 rounded-lg">
-          <p className="text-sm italic">
-            "The journey begins with a single breath"
-          </p>
-        </div>
       </div>
     </div>,
   ];
