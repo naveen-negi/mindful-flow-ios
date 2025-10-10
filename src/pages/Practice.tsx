@@ -138,7 +138,7 @@ const Practice = () => {
       )}
 
       {isActive && !isComplete && !isPausedBetweenRounds && (
-        <div className="flex flex-col items-center justify-between flex-1 w-full max-w-md">
+        <div className="flex flex-col items-center justify-center gap-8 flex-1 w-full max-w-md">
           <div className="flex justify-between items-center w-full mb-8">
             <Button
               onClick={handleEnd}
