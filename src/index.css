@@ -140,3 +140,24 @@ All colors MUST be HSL.
       );
   }
 }
+
+@layer utilities {
+  .zen-texture {
+    background-color: hsl(var(--background));
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        hsl(0 0% 24% / 0.02) 2px,
+        hsl(0 0% 24% / 0.02) 4px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        hsl(0 0% 24% / 0.02) 2px,
+        hsl(0 0% 24% / 0.02) 4px
+      );
+  }
+}

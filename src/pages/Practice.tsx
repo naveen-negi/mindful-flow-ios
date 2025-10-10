@@ -104,13 +104,7 @@ const Practice = () => {
   }
 
   return (
-    <div 
-      className="flex min-h-screen flex-col items-center justify-between p-6 pb-safe pt-safe"
-      style={{
-        background: '#f8f6f1',
-        backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px)'
-      }}
-    >
+    <div className="zen-texture flex min-h-screen flex-col items-center justify-between p-6 pb-safe pt-safe">
       {!isActive && !isComplete && !isPausedBetweenRounds && (
         <div className="flex flex-col items-center justify-center flex-1 w-full">
           <Card className="border bg-card p-10 text-center max-w-md rounded-2xl" style={{ boxShadow: 'var(--shadow-card)' }}>

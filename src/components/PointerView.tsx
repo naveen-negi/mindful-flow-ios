@@ -10,13 +10,7 @@ interface PointerViewProps {
 
 const PointerView = ({ pointer, onContinue, currentRound, totalRounds }: PointerViewProps) => {
   return (
-    <div 
-      className="flex min-h-screen flex-col items-center justify-between p-6 pb-safe pt-safe"
-      style={{
-        background: '#f8f6f1',
-        backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px)'
-      }}
-    >
+    <div className="zen-texture flex min-h-screen flex-col items-center justify-between p-6 pb-safe pt-safe">
       <div className="flex flex-col items-center justify-center flex-1 w-full max-w-md">
         {/* Round indicator */}
         <div className="text-center mb-12">

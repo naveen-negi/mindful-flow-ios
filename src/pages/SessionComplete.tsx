@@ -35,7 +35,7 @@ const SessionComplete = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-background via-card to-background p-6">
+    <div className="flex min-h-screen flex-col items-center justify-center zen-texture p-6">
       <Card className="w-full max-w-md border-primary/20 bg-card/50 p-8 backdrop-blur-sm">
         <h2 className="mb-6 text-center text-2xl font-bold text-foreground">
           How do you feel?
