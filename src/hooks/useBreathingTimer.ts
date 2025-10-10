@@ -53,31 +53,41 @@ export const useBreathingTimer = (
     try {
       const audioContext = new AudioContext();
       
-      // First beep
-      const oscillator1 = audioContext.createOscillator();
-      const gainNode1 = audioContext.createGain();
-      oscillator1.connect(gainNode1);
-      gainNode1.connect(audioContext.destination);
-      oscillator1.frequency.value = 600;
-      oscillator1.type = 'sine';
-      gainNode1.gain.setValueAtTime(0, audioContext.currentTime);
-      gainNode1.gain.linearRampToValueAtTime(0.4, audioContext.currentTime + 0.05);
-      gainNode1.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.15);
-      oscillator1.start(audioContext.currentTime);
-      oscillator1.stop(audioContext.currentTime + 0.15);
+      // First chime cluster
+      [523.25, 659.25, 783.99].forEach((freq, index) => {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.frequency.value = freq;
+        oscillator.type = 'sine';
+        
+        const startTime = audioContext.currentTime + (index * 0.05);
+        gainNode.gain.setValueAtTime(0, startTime);
+        gainNode.gain.linearRampToValueAtTime(0.25, startTime + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.8);
+        
+        oscillator.start(startTime);
+        oscillator.stop(startTime + 0.8);
+      });
 
-      // Second beep
-      const oscillator2 = audioContext.createOscillator();
-      const gainNode2 = audioContext.createGain();
-      oscillator2.connect(gainNode2);
-      gainNode2.connect(audioContext.destination);
-      oscillator2.frequency.value = 600;
-      oscillator2.type = 'sine';
-      gainNode2.gain.setValueAtTime(0, audioContext.currentTime + 0.2);
-      gainNode2.gain.linearRampToValueAtTime(0.4, audioContext.currentTime + 0.25);
-      gainNode2.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.35);
-      oscillator2.start(audioContext.currentTime + 0.2);
-      oscillator2.stop(audioContext.currentTime + 0.35);
+      // Second chime cluster
+      [587.33, 698.46, 880.00].forEach((freq, index) => {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.frequency.value = freq;
+        oscillator.type = 'sine';
+        
+        const startTime = audioContext.currentTime + 0.3 + (index * 0.05);
+        gainNode.gain.setValueAtTime(0, startTime);
+        gainNode.gain.linearRampToValueAtTime(0.25, startTime + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.8);
+        
+        oscillator.start(startTime);
+        oscillator.stop(startTime + 0.8);
+      });
     } catch (error) {
       console.log('Audio not available');
     }
@@ -87,8 +97,10 @@ export const useBreathingTimer = (
     try {
       const audioContext = new AudioContext();
       
-      // Three ascending tones to indicate completion
-      [550, 660, 770].forEach((freq, index) => {
+      // Cascading wind chimes - multiple frequencies with slight delays
+      const chimeFrequencies = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00];
+      
+      chimeFrequencies.forEach((freq, index) => {
         const oscillator = audioContext.createOscillator();
         const gainNode = audioContext.createGain();
         oscillator.connect(gainNode);
@@ -97,13 +109,13 @@ export const useBreathingTimer = (
         oscillator.frequency.value = freq;
         oscillator.type = 'sine';
         
-        const startTime = audioContext.currentTime + (index * 0.25);
+        const startTime = audioContext.currentTime + (index * 0.08);
         gainNode.gain.setValueAtTime(0, startTime);
-        gainNode.gain.linearRampToValueAtTime(0.35, startTime + 0.05);
-        gainNode.gain.linearRampToValueAtTime(0, startTime + 0.3);
+        gainNode.gain.linearRampToValueAtTime(0.2, startTime + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 1.2);
         
         oscillator.start(startTime);
-        oscillator.stop(startTime + 0.3);
+        oscillator.stop(startTime + 1.2);
       });
     } catch (error) {
       console.log('Audio not available');
@@ -113,21 +125,25 @@ export const useBreathingTimer = (
   const playSingleBeep = useCallback(() => {
     try {
       const audioContext = new AudioContext();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-
-      oscillator.frequency.value = 500;
-      oscillator.type = 'sine';
-
-      gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.05);
-      gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.2);
-
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.2);
+      
+      // Gentle chime sound - three harmonious notes
+      [523.25, 659.25, 783.99].forEach((freq, index) => {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.value = freq;
+        oscillator.type = 'sine';
+        
+        const startTime = audioContext.currentTime + (index * 0.04);
+        gainNode.gain.setValueAtTime(0, startTime);
+        gainNode.gain.linearRampToValueAtTime(0.2, startTime + 0.01);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.6);
+        
+        oscillator.start(startTime);
+        oscillator.stop(startTime + 0.6);
+      });
     } catch (error) {
       console.log('Audio not available');
     }
