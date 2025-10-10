@@ -89,23 +89,23 @@ const Practice = () => {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between bg-gradient-to-br from-background via-card to-background p-6">
+    <div className="flex min-h-screen flex-col items-center justify-between bg-background p-6 pb-safe pt-safe">
       {!isActive && !isComplete && (
         <div className="flex flex-col items-center justify-center flex-1 w-full">
-          <Card className="border-primary/20 bg-card/50 p-8 backdrop-blur-sm text-center max-w-md">
-            <h2 className="text-2xl font-bold mb-4 text-foreground">Ready to Begin</h2>
-            <p className="text-muted-foreground mb-6">
+          <Card className="border bg-card p-10 text-center max-w-md rounded-2xl" style={{ boxShadow: 'var(--shadow-card)' }}>
+            <h2 className="text-2xl font-serif font-semibold mb-6 text-foreground">Ready to Begin</h2>
+            <p className="text-muted-foreground mb-8 font-sans leading-relaxed">
               Take a moment to find a comfortable position. Close your eyes when ready.
             </p>
-            <div className="rounded-lg bg-primary/10 p-4 mb-6">
-              <p className="text-sm text-foreground mb-2">Practice Settings</p>
-              <div className="text-lg font-semibold">
+            <div className="rounded-xl bg-muted/30 p-5 mb-8 border border-foreground/5">
+              <p className="text-sm font-sans text-foreground/60 mb-3 uppercase tracking-wide">Practice Settings</p>
+              <div className="text-xl font-serif font-semibold text-foreground">
                 {ratio.inhale}:{ratio.hold}:{ratio.exhale} × {rounds} rounds
               </div>
             </div>
             <Button
               onClick={start}
-              className="w-full bg-gradient-to-r from-primary to-accent py-6 text-lg font-semibold shadow-lg shadow-primary/50 transition-all hover:scale-105"
+              className="w-full py-6 text-lg font-medium rounded-xl"
             >
               <Play className="mr-2 h-5 w-5" />
               Begin Practice
@@ -116,10 +116,21 @@ const Practice = () => {
 
       {isActive && !isComplete && (
         <div className="flex flex-col items-center justify-between flex-1 w-full max-w-md">
-          <div className="text-center mb-8">
-            <div className="text-sm text-muted-foreground mb-2">Round</div>
-            <div className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              {currentRound + 1} / {rounds}
+          <div className="flex justify-between items-center w-full mb-8">
+            <Button
+              onClick={handleEnd}
+              variant="destructive"
+              size="sm"
+              className="rounded-lg font-sans"
+            >
+              <X className="mr-1 h-4 w-4" />
+              Exit Session
+            </Button>
+            <div className="text-center">
+              <div className="text-xs font-sans text-muted-foreground mb-1 uppercase tracking-wider">Round</div>
+              <div className="text-3xl font-serif font-semibold text-primary">
+                {currentRound + 1} / {rounds}
+              </div>
             </div>
           </div>
 
@@ -132,7 +143,7 @@ const Practice = () => {
           <div className="w-full space-y-3 mt-8">
             <Button
               onClick={isPaused ? handleResume : handlePause}
-              className="w-full bg-secondary py-6 text-lg font-semibold"
+              className="w-full py-6 text-lg font-medium rounded-xl"
               variant="secondary"
             >
               {isPaused ? (
@@ -147,38 +158,29 @@ const Practice = () => {
                 </>
               )}
             </Button>
-
-            <Button
-              onClick={handleEnd}
-              variant="outline"
-              className="w-full border-destructive/30 text-destructive hover:bg-destructive/10"
-            >
-              <X className="mr-2 h-4 w-4" />
-              End Practice
-            </Button>
           </div>
         </div>
       )}
 
       {isComplete && (
         <div className="flex flex-col items-center justify-center flex-1 w-full">
-          <Card className="border-primary/20 bg-card/50 p-8 backdrop-blur-sm text-center max-w-md">
-            <div className="mb-6">
-              <div className="text-6xl mb-4">🙏</div>
-              <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <Card className="border bg-card p-10 text-center max-w-md rounded-2xl" style={{ boxShadow: 'var(--shadow-card)' }}>
+            <div className="mb-8">
+              <div className="text-6xl mb-6">🙏</div>
+              <h2 className="text-3xl font-serif font-semibold mb-3 text-foreground">
                 Practice Complete
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground font-sans">
                 You completed {rounds} rounds
               </p>
             </div>
 
-            <div className="rounded-lg bg-primary/10 p-4 mb-6">
-              <p className="text-sm text-muted-foreground mb-2">Session Summary</p>
-              <div className="text-lg font-semibold text-foreground">
+            <div className="rounded-xl bg-muted/30 p-5 mb-8 border border-foreground/5">
+              <p className="text-sm font-sans text-foreground/60 mb-3 uppercase tracking-wide">Session Summary</p>
+              <div className="text-xl font-serif font-semibold text-foreground">
                 {ratio.inhale}:{ratio.hold}:{ratio.exhale} × {rounds} rounds
               </div>
-              <div className="text-sm text-muted-foreground mt-1">
+              <div className="text-sm text-muted-foreground mt-2 font-sans">
                 {Math.floor((Date.now() - startTime) / 1000 / 60)} minutes
               </div>
             </div>
@@ -195,7 +197,7 @@ const Practice = () => {
                     duration: Math.floor((Date.now() - startTime) / 1000),
                   }
                 }})}
-                className="w-full bg-gradient-to-r from-primary to-accent py-6 text-lg font-semibold"
+                className="w-full py-6 text-lg font-medium rounded-xl"
               >
                 Log Feeling
               </Button>
@@ -203,7 +205,7 @@ const Practice = () => {
               <Button
                 onClick={() => navigate('/')}
                 variant="outline"
-                className="w-full border-primary/30"
+                className="w-full rounded-xl"
               >
                 Return Home
               </Button>

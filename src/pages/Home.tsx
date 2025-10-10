@@ -32,17 +32,17 @@ const Home = () => {
   const nextRatio = calculateNextRatio(ratio, settings.progressionIncrement);
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-background via-card to-background p-6">
-      <header className="mb-8 text-center">
-        <h1 className="mb-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-4xl font-bold text-transparent">
+    <div className="flex min-h-screen flex-col bg-background p-6 pb-safe">
+      <header className="mb-8 text-center pt-safe">
+        <h1 className="mb-2 text-4xl font-serif font-semibold text-primary tracking-wide">
           Pranayama
         </h1>
-        <p className="text-muted-foreground">Mindful Breathing Practice</p>
+        <p className="text-muted-foreground font-sans text-base">Mindful Breathing Practice</p>
       </header>
 
       <div className="mx-auto w-full max-w-md space-y-6">
-        <Card className="border-primary/20 bg-card/50 p-6 backdrop-blur-sm">
-          <h2 className="mb-4 text-xl font-semibold text-foreground">Setup Practice</h2>
+        <Card className="border bg-card p-8 rounded-2xl" style={{ boxShadow: 'var(--shadow-card)' }}>
+          <h2 className="mb-6 text-xl font-sans font-medium text-foreground">Setup Practice</h2>
           
           <div className="space-y-4">
             <div>
@@ -68,22 +68,22 @@ const Home = () => {
               />
             </div>
 
-            <div className="rounded-lg bg-primary/10 p-4">
-              <p className="mb-2 text-sm font-medium text-foreground">Current Ratio (1:4:2)</p>
-              <div className="flex items-center justify-between text-2xl font-bold">
+            <div className="rounded-xl bg-muted/30 p-5 border border-foreground/5">
+              <p className="mb-3 text-sm font-sans font-medium text-foreground/60 uppercase tracking-wide">Current Ratio (1:4:2)</p>
+              <div className="flex items-center justify-between text-3xl font-serif font-semibold">
                 <div className="text-center">
                   <div className="text-[hsl(var(--phase-inhale))]">{ratio.inhale}</div>
-                  <div className="text-xs text-muted-foreground">Inhale</div>
+                  <div className="text-xs text-muted-foreground font-sans mt-2 uppercase tracking-wider">Inhale</div>
                 </div>
-                <div className="text-muted-foreground">:</div>
+                <div className="text-muted-foreground font-normal">:</div>
                 <div className="text-center">
                   <div className="text-[hsl(var(--phase-hold))]">{ratio.hold}</div>
-                  <div className="text-xs text-muted-foreground">Hold</div>
+                  <div className="text-xs text-muted-foreground font-sans mt-2 uppercase tracking-wider">Hold</div>
                 </div>
-                <div className="text-muted-foreground">:</div>
+                <div className="text-muted-foreground font-normal">:</div>
                 <div className="text-center">
                   <div className="text-[hsl(var(--phase-exhale))]">{ratio.exhale}</div>
-                  <div className="text-xs text-muted-foreground">Exhale</div>
+                  <div className="text-xs text-muted-foreground font-sans mt-2 uppercase tracking-wider">Exhale</div>
                 </div>
               </div>
             </div>
@@ -103,9 +103,9 @@ const Home = () => {
               />
             </div>
 
-            <div className="rounded-lg border border-accent/30 bg-accent/5 p-3">
-              <p className="text-sm text-muted-foreground">
-                <strong className="text-foreground">Next progression:</strong> {nextRatio.inhale}:
+            <div className="rounded-xl border border-accent/20 bg-accent/5 p-4">
+              <p className="text-sm text-muted-foreground font-sans">
+                <strong className="text-foreground font-medium">Next progression:</strong> {nextRatio.inhale}:
                 {nextRatio.hold}:{nextRatio.exhale}
               </p>
             </div>
@@ -113,7 +113,7 @@ const Home = () => {
 
           <Button
             onClick={handleStart}
-            className="mt-6 w-full bg-gradient-to-r from-primary to-accent py-6 text-lg font-semibold shadow-lg shadow-primary/50 transition-all hover:scale-105 hover:shadow-xl hover:shadow-primary/60"
+            className="mt-6 w-full py-6 text-lg font-medium rounded-xl"
           >
             <Play className="mr-2 h-5 w-5" />
             Start Practice
@@ -124,7 +124,7 @@ const Home = () => {
           <Button
             onClick={() => navigate('/progress')}
             variant="outline"
-            className="flex-1 border-primary/30 bg-card/50 backdrop-blur-sm"
+            className="flex-1 rounded-xl py-6"
           >
             <BarChart3 className="mr-2 h-4 w-4" />
             Progress
@@ -132,15 +132,15 @@ const Home = () => {
           <Button
             onClick={() => navigate('/settings')}
             variant="outline"
-            className="flex-1 border-primary/30 bg-card/50 backdrop-blur-sm"
+            className="flex-1 rounded-xl py-6"
           >
             <Settings className="mr-2 h-4 w-4" />
             Settings
           </Button>
         </div>
 
-        <Card className="border-accent/20 bg-accent/5 p-4">
-          <p className="text-center text-sm italic text-muted-foreground">
+        <Card className="border-accent/20 bg-accent/5 p-5 rounded-2xl">
+          <p className="text-center text-base font-serif italic text-foreground/70 leading-relaxed">
             "Pranayama is not a competition with yourself or others. Begin where you are."
           </p>
         </Card>

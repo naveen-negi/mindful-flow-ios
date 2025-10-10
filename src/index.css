@@ -8,52 +8,55 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 240 30% 8%;
-    --foreground: 240 10% 95%;
+    /* Zen Garden Color Palette */
+    --background: 40 20% 97%;
+    --foreground: 0 0% 24%;
 
-    --card: 240 25% 12%;
-    --card-foreground: 240 10% 95%;
+    --card: 40 25% 98%;
+    --card-foreground: 0 0% 24%;
 
-    --popover: 240 25% 12%;
-    --popover-foreground: 240 10% 95%;
+    --popover: 40 25% 98%;
+    --popover-foreground: 0 0% 24%;
 
-    --primary: 270 80% 65%;
-    --primary-foreground: 240 10% 95%;
+    --primary: 30 35% 65%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 50% 20%;
-    --secondary-foreground: 240 10% 95%;
+    --secondary: 0 0% 42%;
+    --secondary-foreground: 40 25% 98%;
 
-    --muted: 240 40% 15%;
-    --muted-foreground: 240 10% 65%;
+    --muted: 30 10% 88%;
+    --muted-foreground: 0 0% 54%;
 
-    --accent: 280 70% 60%;
-    --accent-foreground: 240 10% 95%;
+    --accent: 30 40% 70%;
+    --accent-foreground: 0 0% 24%;
 
-    --destructive: 0 70% 60%;
-    --destructive-foreground: 240 10% 95%;
+    --destructive: 8 70% 68%;
+    --destructive-foreground: 0 0% 24%;
 
-    --border: 240 30% 20%;
-    --input: 240 30% 20%;
-    --ring: 270 80% 65%;
+    --border: 0 0% 24% / 0.08;
+    --input: 0 0% 24% / 0.12;
+    --ring: 30 35% 65%;
 
     --radius: 1rem;
     
-    /* Breathing phases */
-    --phase-inhale: 200 80% 60%;
-    --phase-hold: 40 90% 65%;
-    --phase-exhale: 270 75% 65%;
-    --phase-rest: 240 30% 20%;
+    /* Breathing phases - Zen colors */
+    --phase-inhale: 100 18% 63%;
+    --phase-hold: 40 60% 75%;
+    --phase-exhale: 210 18% 68%;
+    --phase-rest: 0 0% 42%;
     
     /* Gradients */
-    --gradient-calm: linear-gradient(135deg, hsl(240 30% 12%) 0%, hsl(260 40% 18%) 100%);
-    --gradient-breath: linear-gradient(135deg, hsl(270 80% 65%) 0%, hsl(280 70% 60%) 100%);
+    --gradient-calm: linear-gradient(135deg, hsl(40 20% 97%) 0%, hsl(35 25% 95%) 100%);
+    --gradient-breath: linear-gradient(135deg, hsl(30 35% 65%) 0%, hsl(30 40% 70%) 100%);
     
-    /* Shadows */
-    --shadow-glow: 0 0 40px hsl(270 80% 65% / 0.3);
-    --shadow-soft: 0 10px 40px hsl(240 30% 5% / 0.4);
+    /* Shadows - subtle zen shadows */
+    --shadow-glow: 0 0 40px hsl(30 35% 65% / 0.2);
+    --shadow-soft: 0 2px 8px hsl(0 0% 24% / 0.06);
+    --shadow-card: 0 2px 8px hsl(0 0% 24% / 0.06), 0 1px 2px hsl(0 0% 24% / 0.04);
     
     /* Animations */
     --transition-breath: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s ease;
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
@@ -74,33 +77,34 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 240 30% 8%;
-    --foreground: 240 10% 95%;
+    /* Keep same light zen theme for dark mode */
+    --background: 40 20% 97%;
+    --foreground: 0 0% 24%;
 
-    --card: 240 25% 12%;
-    --card-foreground: 240 10% 95%;
+    --card: 40 25% 98%;
+    --card-foreground: 0 0% 24%;
 
-    --popover: 240 25% 12%;
-    --popover-foreground: 240 10% 95%;
+    --popover: 40 25% 98%;
+    --popover-foreground: 0 0% 24%;
 
-    --primary: 270 80% 65%;
-    --primary-foreground: 240 10% 95%;
+    --primary: 30 35% 65%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 50% 20%;
-    --secondary-foreground: 240 10% 95%;
+    --secondary: 0 0% 42%;
+    --secondary-foreground: 40 25% 98%;
 
-    --muted: 240 40% 15%;
-    --muted-foreground: 240 10% 65%;
+    --muted: 30 10% 88%;
+    --muted-foreground: 0 0% 54%;
 
-    --accent: 280 70% 60%;
-    --accent-foreground: 240 10% 95%;
+    --accent: 30 40% 70%;
+    --accent-foreground: 0 0% 24%;
 
-    --destructive: 0 70% 60%;
-    --destructive-foreground: 240 10% 95%;
+    --destructive: 8 70% 68%;
+    --destructive-foreground: 0 0% 24%;
 
-    --border: 240 30% 20%;
-    --input: 240 30% 20%;
-    --ring: 270 80% 65%;
+    --border: 0 0% 24% / 0.08;
+    --input: 0 0% 24% / 0.12;
+    --ring: 30 35% 65%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -118,6 +122,21 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    background-image: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(60, 60, 60, 0.015) 2px,
+        rgba(60, 60, 60, 0.015) 4px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(60, 60, 60, 0.015) 2px,
+        rgba(60, 60, 60, 0.015) 4px
+      );
   }
 }
