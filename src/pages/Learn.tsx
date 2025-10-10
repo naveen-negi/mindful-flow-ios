@@ -100,7 +100,7 @@ const Learn = () => {
                     <div>
                       <p className="font-semibold mb-2">How To Practice:</p>
                       <ul className="space-y-1 text-sm">
-                        <li>• Inhale slowly through both nostrils</li>
+                        <li>• Inhale slowly through nose</li>
                         <li>• Begin by expanding the belly (diaphragmatic breathing)</li>
                         <li>• Then expand the ribs</li>
                         <li>• Finally fill the upper chest</li>
@@ -165,7 +165,7 @@ const Learn = () => {
                       <p className="font-semibold mb-2">How To Practice:</p>
                       <ul className="space-y-1 text-sm">
                         <li>• Gently open the throat</li>
-                        <li>• Exhale slowly through both nostrils</li>
+                        <li>• Exhale slowly through mouth</li>
                         <li>• Begin by releasing from upper chest</li>
                         <li>• Then ribs contract</li>
                         <li>• Finally pull navel toward spine (complete emptying)</li>
@@ -625,7 +625,7 @@ const Learn = () => {
                   <li>✓ Never force the breath</li>
                   <li>✓ Start small and progress slowly</li>
                   <li>✓ Practice on an empty stomach (3-4 hours after meals)</li>
-                  <li>✓ Breathe through your nose</li>
+                  <li>✓ Inhale through nose, exhale through mouth</li>
                   <li>✓ Stay aware and present</li>
                   <li>✓ Listen to your body</li>
                 </ul>
@@ -688,7 +688,7 @@ const Learn = () => {
                   <AccordionItem value="item-6">
                     <AccordionTrigger>Should I breathe through my nose or mouth?</AccordionTrigger>
                     <AccordionContent>
-                      Always through your nose, both inhale and exhale. Nasal breathing filters and warms the air.
+                      <strong>Inhale through nose, exhale through mouth.</strong> Nasal inhalation filters and warms the air, while mouth exhalation allows for complete release and activates the relaxation response.
                     </AccordionContent>
                   </AccordionItem>
 

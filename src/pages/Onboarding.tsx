@@ -67,7 +67,7 @@ const Onboarding = () => {
       <div className="max-w-2xl mx-auto space-y-3">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">1. Inhale</CardTitle>
+            <CardTitle className="text-base">1. Inhale (Nose)</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm">Breathe slowly through nose, expand belly to chest</p>
@@ -85,10 +85,10 @@ const Onboarding = () => {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">3. Exhale (2×)</CardTitle>
+            <CardTitle className="text-base">3. Exhale (Mouth) (2×)</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm">Release slowly, activates deep relaxation</p>
+            <p className="text-sm">Release slowly through mouth, activates deep relaxation</p>
           </CardContent>
         </Card>
       </div>

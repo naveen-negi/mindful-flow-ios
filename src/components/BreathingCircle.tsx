@@ -23,7 +23,7 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
   const phaseConfig = {
     inhale: {
       color: 'hsl(var(--phase-inhale))',
-      label: 'Breathe In',
+      label: 'Breathe In (Nose)',
       scale: 'scale-110',
       glow: 'shadow-[0_0_50px_hsl(var(--phase-inhale)/0.2)]',
     },
@@ -35,7 +35,7 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
     },
     exhale: {
       color: 'hsl(var(--phase-exhale))',
-      label: 'Breathe Out',
+      label: 'Breathe Out (Mouth)',
       scale: 'scale-95',
       glow: 'shadow-[0_0_50px_hsl(var(--phase-exhale)/0.2)]',
     },
