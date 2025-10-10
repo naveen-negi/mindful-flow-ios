@@ -3,10 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import BreathingCircle from '@/components/BreathingCircle';
+import PointerView from '@/components/PointerView';
 import { useBreathingTimer } from '@/hooks/useBreathingTimer';
 import { BreathingRatio } from '@/types/breathing';
 import { savePracticeSession, getSettings } from '@/utils/storage';
-import { Pause, Play, X, RotateCcw } from 'lucide-react';
+import { getRandomPointer } from '@/data/pointers';
+import { Pause, Play, X } from 'lucide-react';
 
 const Practice = () => {
   const location = useLocation();
@@ -20,6 +22,8 @@ const Practice = () => {
 
   const [startTime] = useState(Date.now());
   const [isPaused, setIsPaused] = useState(false);
+  const [shownPointerIndices, setShownPointerIndices] = useState<number[]>([]);
+  const [currentPointer, setCurrentPointer] = useState<string>('');
 
   const {
     isActive,
@@ -27,11 +31,22 @@ const Practice = () => {
     currentRound,
     timeRemaining,
     isComplete,
+    isPausedBetweenRounds,
     start,
     pause,
     resume,
     reset,
+    continueToNextRound,
   } = useBreathingTimer(ratio, rounds, settings.hapticEnabled);
+
+  // Show pointer when paused between rounds
+  useEffect(() => {
+    if (isPausedBetweenRounds) {
+      const { text, index } = getRandomPointer(shownPointerIndices);
+      setCurrentPointer(text);
+      setShownPointerIndices(prev => [...prev, index]);
+    }
+  }, [isPausedBetweenRounds]);
 
   useEffect(() => {
     if (!location.state) {
@@ -114,7 +129,16 @@ const Practice = () => {
         </div>
       )}
 
-      {isActive && !isComplete && (
+      {isPausedBetweenRounds && (
+        <PointerView
+          pointer={currentPointer}
+          onContinue={continueToNextRound}
+          currentRound={currentRound}
+          totalRounds={rounds}
+        />
+      )}
+
+      {isActive && !isComplete && !isPausedBetweenRounds && (
         <div className="flex flex-col items-center justify-between flex-1 w-full max-w-md">
           <div className="flex justify-between items-center w-full mb-8">
             <Button

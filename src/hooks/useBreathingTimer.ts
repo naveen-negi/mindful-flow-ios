@@ -12,6 +12,7 @@ export const useBreathingTimer = (
   const [currentRound, setCurrentRound] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [isPausedBetweenRounds, setIsPausedBetweenRounds] = useState(false);
   
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const phaseStartTimeRef = useRef<number>(0);
@@ -80,7 +81,10 @@ export const useBreathingTimer = (
           setIsActive(false);
           return;
         }
-        setCurrentRound(prev => prev + 1);
+        // Pause between rounds to show pointer
+        setIsPausedBetweenRounds(true);
+        setIsActive(false);
+        return;
       }
       nextPhase = 'inhale';
       nextDuration = ratio.inhale;
@@ -103,6 +107,18 @@ export const useBreathingTimer = (
     playPhaseSound(nextPhase);
     triggerHaptic(nextPhase);
   }, [currentPhase, currentRound, rounds, ratio, playPhaseSound, triggerHaptic]);
+
+  const continueToNextRound = useCallback(() => {
+    setCurrentRound(prev => prev + 1);
+    setIsPausedBetweenRounds(false);
+    setIsActive(true);
+    setCurrentPhase('inhale');
+    setTimeRemaining(ratio.inhale);
+    phaseDurationRef.current = ratio.inhale;
+    phaseStartTimeRef.current = Date.now();
+    playPhaseSound('inhale');
+    triggerHaptic('inhale');
+  }, [ratio, playPhaseSound, triggerHaptic]);
 
   useEffect(() => {
     if (!isActive) {
@@ -175,9 +191,11 @@ export const useBreathingTimer = (
     currentRound,
     timeRemaining,
     isComplete,
+    isPausedBetweenRounds,
     start,
     pause,
     resume,
     reset,
+    continueToNextRound,
   };
 };
