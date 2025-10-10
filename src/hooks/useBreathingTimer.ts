@@ -17,102 +17,29 @@ export const useBreathingTimer = (
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const phaseStartTimeRef = useRef<number>(0);
   const phaseDurationRef = useRef<number>(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const playDoubleBeep = useCallback(() => {
-    try {
-      const audioContext = new AudioContext();
-      
-      // First chime cluster
-      [523.25, 659.25, 783.99].forEach((freq, index) => {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        oscillator.frequency.value = freq;
-        oscillator.type = 'sine';
-        
-        const startTime = audioContext.currentTime + (index * 0.05);
-        gainNode.gain.setValueAtTime(0, startTime);
-        gainNode.gain.linearRampToValueAtTime(0.25, startTime + 0.02);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.8);
-        
-        oscillator.start(startTime);
-        oscillator.stop(startTime + 0.8);
-      });
+  // Preload singing bowl audio
+  useEffect(() => {
+    audioRef.current = new Audio('/sounds/202003__ryancacophony__singing-bowl-hit-3.wav');
+    audioRef.current.preload = 'auto';
+    audioRef.current.load();
 
-      // Second chime cluster
-      [587.33, 698.46, 880.00].forEach((freq, index) => {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        oscillator.frequency.value = freq;
-        oscillator.type = 'sine';
-        
-        const startTime = audioContext.currentTime + 0.3 + (index * 0.05);
-        gainNode.gain.setValueAtTime(0, startTime);
-        gainNode.gain.linearRampToValueAtTime(0.25, startTime + 0.02);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.8);
-        
-        oscillator.start(startTime);
-        oscillator.stop(startTime + 0.8);
-      });
-    } catch (error) {
-      console.log('Audio not available');
-    }
+    return () => {
+      if (audioRef.current) {
+        audioRef.current = null;
+      }
+    };
   }, []);
 
-  const playRoundCompleteSound = useCallback(() => {
+  const playSingingBowl = useCallback(() => {
     try {
-      const audioContext = new AudioContext();
-      
-      // Cascading wind chimes - multiple frequencies with slight delays
-      const chimeFrequencies = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00];
-      
-      chimeFrequencies.forEach((freq, index) => {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.value = freq;
-        oscillator.type = 'sine';
-        
-        const startTime = audioContext.currentTime + (index * 0.08);
-        gainNode.gain.setValueAtTime(0, startTime);
-        gainNode.gain.linearRampToValueAtTime(0.2, startTime + 0.02);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 1.2);
-        
-        oscillator.start(startTime);
-        oscillator.stop(startTime + 1.2);
-      });
-    } catch (error) {
-      console.log('Audio not available');
-    }
-  }, []);
-
-  const playSingleBeep = useCallback(() => {
-    try {
-      const audioContext = new AudioContext();
-      
-      // Gentle chime sound - three harmonious notes
-      [523.25, 659.25, 783.99].forEach((freq, index) => {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.value = freq;
-        oscillator.type = 'sine';
-        
-        const startTime = audioContext.currentTime + (index * 0.04);
-        gainNode.gain.setValueAtTime(0, startTime);
-        gainNode.gain.linearRampToValueAtTime(0.2, startTime + 0.01);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.6);
-        
-        oscillator.start(startTime);
-        oscillator.stop(startTime + 0.6);
-      });
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(error => {
+          console.log('Audio playback failed:', error);
+        });
+      }
     } catch (error) {
       console.log('Audio not available');
     }
@@ -151,8 +78,8 @@ export const useBreathingTimer = (
           setIsActive(false);
           return;
         }
-        // Pause between rounds to show pointer - play same sound as phase change
-        playSingleBeep();
+        // Pause between rounds to show pointer - play singing bowl
+        playSingingBowl();
         setIsPausedBetweenRounds(true);
         setIsActive(false);
         return;
@@ -169,15 +96,15 @@ export const useBreathingTimer = (
     }
 
     console.log(`Moving to ${nextPhase} for ${nextDuration} seconds`);
-    
+
     setCurrentPhase(nextPhase);
     setTimeRemaining(nextDuration);
     phaseDurationRef.current = nextDuration;
     phaseStartTimeRef.current = Date.now();
-    
-    playSingleBeep();
+
+    playSingingBowl();
     triggerHaptic(nextPhase);
-  }, [currentPhase, currentRound, rounds, ratio, playSingleBeep, triggerHaptic]);
+  }, [currentPhase, currentRound, rounds, ratio, playSingingBowl, triggerHaptic]);
 
   const startNextRound = useCallback(() => {
     setCurrentRound(prev => prev + 1);
@@ -187,9 +114,9 @@ export const useBreathingTimer = (
     setTimeRemaining(ratio.inhale);
     phaseDurationRef.current = ratio.inhale;
     phaseStartTimeRef.current = Date.now();
-    playDoubleBeep();
+    playSingingBowl();
     triggerHaptic('inhale');
-  }, [ratio, playDoubleBeep, triggerHaptic]);
+  }, [ratio, playSingingBowl, triggerHaptic]);
 
   useEffect(() => {
     if (!isActive) {
@@ -227,9 +154,9 @@ export const useBreathingTimer = (
     setIsComplete(false);
     phaseDurationRef.current = ratio.inhale;
     phaseStartTimeRef.current = Date.now();
-    playDoubleBeep();
+    playSingingBowl();
     triggerHaptic('inhale');
-  }, [ratio, playDoubleBeep, triggerHaptic]);
+  }, [ratio, playSingingBowl, triggerHaptic]);
 
   const pause = useCallback(() => {
     setIsActive(false);
