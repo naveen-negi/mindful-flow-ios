@@ -151,8 +151,8 @@ export const useBreathingTimer = (
           setIsActive(false);
           return;
         }
-        // Pause between rounds to show pointer - play completion sound
-        playRoundCompleteSound();
+        // Pause between rounds to show pointer - play same sound as phase change
+        playSingleBeep();
         setIsPausedBetweenRounds(true);
         setIsActive(false);
         return;
@@ -177,7 +177,7 @@ export const useBreathingTimer = (
     
     playSingleBeep();
     triggerHaptic(nextPhase);
-  }, [currentPhase, currentRound, rounds, ratio, playSingleBeep, triggerHaptic, playRoundCompleteSound]);
+  }, [currentPhase, currentRound, rounds, ratio, playSingleBeep, triggerHaptic]);
 
   const startNextRound = useCallback(() => {
     setCurrentRound(prev => prev + 1);
