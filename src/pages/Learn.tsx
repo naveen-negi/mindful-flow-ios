@@ -9,32 +9,32 @@ const Learn = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container max-w-6xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background pb-safe">
+      <div className="container max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
         {/* Header */}
-        <div className="mb-8">
-          <Button variant="ghost" onClick={() => navigate(-1)} className="mb-4">
+        <div className="mb-4 sm:mb-8">
+          <Button variant="ghost" onClick={() => navigate(-1)} className="mb-3 sm:mb-4 text-sm sm:text-base">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
           </Button>
-          <h1 className="text-4xl font-bold mb-2">Learn About Pranayama</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-4xl font-bold mb-2">Learn About Pranayama</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Everything you need to know about the 1:4:2 breathing technique
           </p>
         </div>
 
         {/* Main content with tabs */}
-        <Tabs defaultValue="basics" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5">
-            <TabsTrigger value="basics">Basics</TabsTrigger>
-            <TabsTrigger value="tradition">Tradition</TabsTrigger>
-            <TabsTrigger value="science">Science</TabsTrigger>
-            <TabsTrigger value="practice">Practice</TabsTrigger>
-            <TabsTrigger value="faq">FAQ</TabsTrigger>
+        <Tabs defaultValue="basics" className="space-y-4 sm:space-y-6">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 h-auto gap-1">
+            <TabsTrigger value="basics" className="text-xs sm:text-sm py-2">Basics</TabsTrigger>
+            <TabsTrigger value="tradition" className="text-xs sm:text-sm py-2">Tradition</TabsTrigger>
+            <TabsTrigger value="science" className="text-xs sm:text-sm py-2">Science</TabsTrigger>
+            <TabsTrigger value="practice" className="text-xs sm:text-sm py-2">Practice</TabsTrigger>
+            <TabsTrigger value="faq" className="text-xs sm:text-sm py-2 col-span-3 lg:col-span-1">FAQ</TabsTrigger>
           </TabsList>
 
           {/* Basics Tab */}
-          <TabsContent value="basics" className="space-y-6">
+          <TabsContent value="basics" className="space-y-4 sm:space-y-6">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">

@@ -31,30 +31,30 @@ const Onboarding = () => {
 
   const steps = [
     // Step 0: Welcome
-    <div key="welcome" className="space-y-6 animate-in fade-in-50 duration-500">
-      <div className="text-center space-y-4">
-        <Sparkles className="h-16 w-16 mx-auto text-primary" />
-        <h1 className="text-4xl font-bold">Welcome</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+    <div key="welcome" className="space-y-4 sm:space-y-6 animate-in fade-in-50 duration-500 px-2">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <Sparkles className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-primary" />
+        <h1 className="text-2xl sm:text-4xl font-bold">Welcome</h1>
+        <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
           You're about to learn the 1:4:2 pranayama technique—a 500-year-old breathing practice used by yogis to calm the mind and deepen awareness.
         </p>
-        <p className="text-xl font-semibold">
+        <p className="text-base sm:text-xl font-semibold px-2">
           This isn't just another breathing app.<br />
           This is a gateway to an ancient tradition.
         </p>
-        <p className="text-sm text-muted-foreground italic mt-4">
+        <p className="text-xs sm:text-sm text-muted-foreground italic mt-3 sm:mt-4 px-2">
           Source: From the Hatha Yoga Pradipika (15th century) and Gheranda Samhita (17th century)
         </p>
       </div>
     </div>,
 
     // Step 1: What is 1:4:2
-    <div key="what-is" className="space-y-6 animate-in fade-in-50 duration-500">
-      <div className="text-center space-y-4">
-        <Clock className="h-16 w-16 mx-auto text-primary" />
-        <h1 className="text-4xl font-bold">The Sacred Ratio</h1>
-        <div className="text-6xl font-bold my-8">1 : 4 : 2</div>
-        <div className="text-2xl space-y-2">
+    <div key="what-is" className="space-y-4 sm:space-y-6 animate-in fade-in-50 duration-500 px-2">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <Clock className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-primary" />
+        <h1 className="text-2xl sm:text-4xl font-bold">The Sacred Ratio</h1>
+        <div className="text-4xl sm:text-6xl font-bold my-4 sm:my-8">1 : 4 : 2</div>
+        <div className="text-lg sm:text-2xl space-y-1 sm:space-y-2">
           <p><span className="font-semibold">1</span> - Inhale</p>
           <p><span className="font-semibold">4</span> - Hold</p>
           <p><span className="font-semibold">2</span> - Exhale</p>
@@ -95,14 +95,14 @@ const Onboarding = () => {
     </div>,
 
     // Step 2: Ancient Tradition
-    <div key="tradition" className="space-y-6 animate-in fade-in-50 duration-500">
-      <div className="text-center space-y-4">
-        <BookOpen className="h-16 w-16 mx-auto text-primary" />
-        <h1 className="text-4xl font-bold">The Ancient Tradition</h1>
-        <p className="text-muted-foreground">A practice refined over 3,500 years</p>
+    <div key="tradition" className="space-y-4 sm:space-y-6 animate-in fade-in-50 duration-500 px-2">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <BookOpen className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-primary" />
+        <h1 className="text-2xl sm:text-4xl font-bold">The Ancient Tradition</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">A practice refined over 3,500 years</p>
       </div>
 
-      <div className="max-w-3xl mx-auto space-y-6">
+      <div className="max-w-3xl mx-auto space-y-3 sm:space-y-6">
         <Card>
           <CardHeader>
             <CardTitle>1500 BCE - The Vedas</CardTitle>
@@ -156,17 +156,17 @@ const Onboarding = () => {
     </div>,
 
     // Step 3: The Science
-    <div key="science" className="space-y-6 animate-in fade-in-50 duration-500">
-      <div className="text-center space-y-4">
-        <Brain className="h-16 w-16 mx-auto text-primary" />
-        <h1 className="text-4xl font-bold">The Science</h1>
-        <p className="text-xl">Ancient Wisdom Meets Modern Research</p>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
+    <div key="science" className="space-y-4 sm:space-y-6 animate-in fade-in-50 duration-500 px-2">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <Brain className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-primary" />
+        <h1 className="text-2xl sm:text-4xl font-bold">The Science</h1>
+        <p className="text-base sm:text-xl">Ancient Wisdom Meets Modern Research</p>
+        <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2">
           What yogis discovered through direct experience, science now confirms through measurement.
         </p>
       </div>
 
-      <div className="max-w-3xl mx-auto space-y-4">
+      <div className="max-w-3xl mx-auto space-y-3 sm:space-y-4">
         <Card>
           <CardHeader>
             <CardTitle>🫁 The Bohr Effect</CardTitle>
@@ -222,11 +222,11 @@ const Onboarding = () => {
     </div>,
 
     // Step 4: Safety Warning
-    <div key="safety" className="space-y-6 animate-in fade-in-50 duration-500">
-      <div className="text-center space-y-4">
-        <AlertTriangle className="h-16 w-16 mx-auto text-destructive" />
-        <h1 className="text-4xl font-bold text-destructive">Safety Warning</h1>
-        <p className="text-xl font-semibold max-w-2xl mx-auto">
+    <div key="safety" className="space-y-4 sm:space-y-6 animate-in fade-in-50 duration-500 px-2">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <AlertTriangle className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-destructive" />
+        <h1 className="text-2xl sm:text-4xl font-bold text-destructive">Safety Warning</h1>
+        <p className="text-base sm:text-xl font-semibold max-w-2xl mx-auto px-2">
           The ancient texts are clear: breath work must be approached with wisdom and care.
         </p>
       </div>
@@ -316,14 +316,14 @@ const Onboarding = () => {
     </div>,
 
     // Step 5: How to Practice - Three Phases
-    <div key="phases" className="space-y-6 animate-in fade-in-50 duration-500">
-      <div className="text-center space-y-4">
-        <Heart className="h-16 w-16 mx-auto text-primary" />
-        <h1 className="text-4xl font-bold">The Three Phases</h1>
-        <p className="text-muted-foreground">Understanding each part of the breath cycle</p>
+    <div key="phases" className="space-y-4 sm:space-y-6 animate-in fade-in-50 duration-500 px-2">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <Heart className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-primary" />
+        <h1 className="text-2xl sm:text-4xl font-bold">The Three Phases</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">Understanding each part of the breath cycle</p>
       </div>
 
-      <div className="max-w-3xl mx-auto space-y-6">
+      <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
         <Card>
           <CardHeader>
             <CardTitle>Phase 1: Puraka (Inhalation)</CardTitle>
@@ -454,42 +454,42 @@ const Onboarding = () => {
     </div>,
 
     // Step 6: Progression Levels
-    <div key="progression" className="space-y-6 animate-in fade-in-50 duration-500">
-      <div className="text-center space-y-4">
-        <CheckCircle2 className="h-16 w-16 mx-auto text-primary" />
-        <h1 className="text-4xl font-bold">Progression Levels</h1>
-        <p className="text-muted-foreground">A realistic path from beginner to master</p>
+    <div key="progression" className="space-y-4 sm:space-y-6 animate-in fade-in-50 duration-500 px-2">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <CheckCircle2 className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-primary" />
+        <h1 className="text-2xl sm:text-4xl font-bold">Progression Levels</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">A realistic path from beginner to master</p>
       </div>
 
       <div className="max-w-4xl mx-auto">
         <Card>
           <CardHeader>
-            <CardTitle>Traditional Progression Table</CardTitle>
-            <CardDescription>Progress slowly and master each level before advancing</CardDescription>
+            <CardTitle className="text-lg sm:text-2xl">Traditional Progression Table</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Progress slowly and master each level before advancing</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+            <div className="overflow-x-auto -mx-2 sm:mx-0">
+              <table className="w-full text-xs sm:text-sm min-w-[300px]">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-2">Level</th>
-                    <th className="text-center p-2">Inhale</th>
-                    <th className="text-center p-2">Hold</th>
-                    <th className="text-center p-2">Exhale</th>
-                    <th className="text-center p-2">Total Cycle</th>
+                    <th className="text-left p-1.5 sm:p-2 text-xs">Level</th>
+                    <th className="text-center p-1.5 sm:p-2 text-xs">In</th>
+                    <th className="text-center p-1.5 sm:p-2 text-xs">Hold</th>
+                    <th className="text-center p-1.5 sm:p-2 text-xs">Out</th>
+                    <th className="text-center p-1.5 sm:p-2 text-xs">Total</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr className="border-b"><td className="p-2 font-semibold">Beginner</td><td className="text-center p-2">4s</td><td className="text-center p-2">16s</td><td className="text-center p-2">8s</td><td className="text-center p-2">28s</td></tr>
-                  <tr className="border-b"><td className="p-2 font-semibold">Developing</td><td className="text-center p-2">5s</td><td className="text-center p-2">20s</td><td className="text-center p-2">10s</td><td className="text-center p-2">35s</td></tr>
-                  <tr className="border-b"><td className="p-2 font-semibold">Intermediate</td><td className="text-center p-2">6s</td><td className="text-center p-2">24s</td><td className="text-center p-2">12s</td><td className="text-center p-2">42s</td></tr>
-                  <tr className="border-b"><td className="p-2 font-semibold">Progressing</td><td className="text-center p-2">8s</td><td className="text-center p-2">32s</td><td className="text-center p-2">16s</td><td className="text-center p-2">56s</td></tr>
-                  <tr className="border-b"><td className="p-2 font-semibold">Advanced</td><td className="text-center p-2">10s</td><td className="text-center p-2">40s</td><td className="text-center p-2">20s</td><td className="text-center p-2">70s</td></tr>
-                  <tr className="border-b"><td className="p-2 font-semibold">Very Advanced</td><td className="text-center p-2">12s</td><td className="text-center p-2">48s</td><td className="text-center p-2">24s</td><td className="text-center p-2">84s</td></tr>
-                  <tr className="border-b"><td className="p-2 font-semibold">Expert</td><td className="text-center p-2">15s</td><td className="text-center p-2">60s</td><td className="text-center p-2">30s</td><td className="text-center p-2">105s</td></tr>
-                  <tr className="border-b"><td className="p-2 font-semibold">Highly Expert</td><td className="text-center p-2">18s</td><td className="text-center p-2">72s</td><td className="text-center p-2">36s</td><td className="text-center p-2">126s</td></tr>
-                  <tr className="border-b"><td className="p-2 font-semibold">Master</td><td className="text-center p-2">20s</td><td className="text-center p-2">80s</td><td className="text-center p-2">40s</td><td className="text-center p-2">140s</td></tr>
-                  <tr><td className="p-2 font-semibold">Advanced Master</td><td className="text-center p-2">22s</td><td className="text-center p-2">88s</td><td className="text-center p-2">44s</td><td className="text-center p-2">154s</td></tr>
+                <tbody className="text-xs sm:text-sm">
+                  <tr className="border-b"><td className="p-1.5 sm:p-2 font-semibold text-xs sm:text-sm">Beginner</td><td className="text-center p-1.5 sm:p-2">4s</td><td className="text-center p-1.5 sm:p-2">16s</td><td className="text-center p-1.5 sm:p-2">8s</td><td className="text-center p-1.5 sm:p-2">28s</td></tr>
+                  <tr className="border-b"><td className="p-1.5 sm:p-2 font-semibold text-xs sm:text-sm">Developing</td><td className="text-center p-1.5 sm:p-2">5s</td><td className="text-center p-1.5 sm:p-2">20s</td><td className="text-center p-1.5 sm:p-2">10s</td><td className="text-center p-1.5 sm:p-2">35s</td></tr>
+                  <tr className="border-b"><td className="p-1.5 sm:p-2 font-semibold text-xs sm:text-sm">Intermediate</td><td className="text-center p-1.5 sm:p-2">6s</td><td className="text-center p-1.5 sm:p-2">24s</td><td className="text-center p-1.5 sm:p-2">12s</td><td className="text-center p-1.5 sm:p-2">42s</td></tr>
+                  <tr className="border-b"><td className="p-1.5 sm:p-2 font-semibold text-xs sm:text-sm">Progressing</td><td className="text-center p-1.5 sm:p-2">8s</td><td className="text-center p-1.5 sm:p-2">32s</td><td className="text-center p-1.5 sm:p-2">16s</td><td className="text-center p-1.5 sm:p-2">56s</td></tr>
+                  <tr className="border-b"><td className="p-1.5 sm:p-2 font-semibold text-xs sm:text-sm">Advanced</td><td className="text-center p-1.5 sm:p-2">10s</td><td className="text-center p-1.5 sm:p-2">40s</td><td className="text-center p-1.5 sm:p-2">20s</td><td className="text-center p-1.5 sm:p-2">70s</td></tr>
+                  <tr className="border-b"><td className="p-1.5 sm:p-2 font-semibold text-xs sm:text-sm">V. Advanced</td><td className="text-center p-1.5 sm:p-2">12s</td><td className="text-center p-1.5 sm:p-2">48s</td><td className="text-center p-1.5 sm:p-2">24s</td><td className="text-center p-1.5 sm:p-2">84s</td></tr>
+                  <tr className="border-b"><td className="p-1.5 sm:p-2 font-semibold text-xs sm:text-sm">Expert</td><td className="text-center p-1.5 sm:p-2">15s</td><td className="text-center p-1.5 sm:p-2">60s</td><td className="text-center p-1.5 sm:p-2">30s</td><td className="text-center p-1.5 sm:p-2">105s</td></tr>
+                  <tr className="border-b"><td className="p-1.5 sm:p-2 font-semibold text-xs sm:text-sm">H. Expert</td><td className="text-center p-1.5 sm:p-2">18s</td><td className="text-center p-1.5 sm:p-2">72s</td><td className="text-center p-1.5 sm:p-2">36s</td><td className="text-center p-1.5 sm:p-2">126s</td></tr>
+                  <tr className="border-b"><td className="p-1.5 sm:p-2 font-semibold text-xs sm:text-sm">Master</td><td className="text-center p-1.5 sm:p-2">20s</td><td className="text-center p-1.5 sm:p-2">80s</td><td className="text-center p-1.5 sm:p-2">40s</td><td className="text-center p-1.5 sm:p-2">140s</td></tr>
+                  <tr><td className="p-1.5 sm:p-2 font-semibold text-xs sm:text-sm">Adv. Master</td><td className="text-center p-1.5 sm:p-2">22s</td><td className="text-center p-1.5 sm:p-2">88s</td><td className="text-center p-1.5 sm:p-2">44s</td><td className="text-center p-1.5 sm:p-2">154s</td></tr>
                 </tbody>
               </table>
             </div>
@@ -520,11 +520,11 @@ const Onboarding = () => {
     </div>,
 
     // Step 7: Self-Inquiry (optional section)
-    <div key="self-inquiry" className="space-y-6 animate-in fade-in-50 duration-500">
-      <div className="text-center space-y-4">
-        <Sparkles className="h-16 w-16 mx-auto text-primary" />
-        <h1 className="text-4xl font-bold">Self-Inquiry</h1>
-        <p className="text-xl">Deepening the Practice</p>
+    <div key="self-inquiry" className="space-y-4 sm:space-y-6 animate-in fade-in-50 duration-500 px-2">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <Sparkles className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-primary" />
+        <h1 className="text-2xl sm:text-4xl font-bold">Self-Inquiry</h1>
+        <p className="text-base sm:text-xl">Deepening the Practice</p>
       </div>
 
       <Card className="max-w-3xl mx-auto">
@@ -575,11 +575,11 @@ const Onboarding = () => {
     </div>,
 
     // Step 8: Ready to Begin
-    <div key="ready" className="space-y-6 animate-in fade-in-50 duration-500">
-      <div className="text-center space-y-6">
-        <CheckCircle2 className="h-20 w-20 mx-auto text-primary" />
-        <h1 className="text-5xl font-bold">You're Ready</h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+    <div key="ready" className="space-y-4 sm:space-y-6 animate-in fade-in-50 duration-500 px-2">
+      <div className="text-center space-y-4 sm:space-y-6">
+        <CheckCircle2 className="h-16 w-16 sm:h-20 sm:w-20 mx-auto text-primary" />
+        <h1 className="text-3xl sm:text-5xl font-bold">You're Ready</h1>
+        <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
           You now understand the ancient tradition, the science, and how to practice safely.
         </p>
 
@@ -611,13 +611,13 @@ const Onboarding = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container max-w-6xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background overflow-x-hidden">
+      <div className="container max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8 pb-20">
         {/* Progress bar */}
-        <div className="mb-8">
+        <div className="mb-4 sm:mb-8">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-medium">Step {currentStep + 1} of {totalSteps}</span>
-            <Button variant="ghost" size="sm" onClick={handleSkip}>
+            <span className="text-xs sm:text-sm font-medium">Step {currentStep + 1} of {totalSteps}</span>
+            <Button variant="ghost" size="sm" onClick={handleSkip} className="text-xs sm:text-sm">
               Skip
             </Button>
           </div>
@@ -625,16 +625,17 @@ const Onboarding = () => {
         </div>
 
         {/* Current step content */}
-        <div className="mb-8">
+        <div className="mb-4 sm:mb-8 overflow-y-auto max-h-[calc(100vh-180px)]">
           {steps[currentStep]}
         </div>
 
         {/* Navigation buttons */}
-        <div className="flex justify-between items-center max-w-3xl mx-auto">
+        <div className="fixed bottom-0 left-0 right-0 bg-background border-t p-3 sm:p-4 flex justify-between items-center gap-3">
           <Button
             variant="outline"
             onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
             disabled={currentStep === 0}
+            className="flex-1 sm:flex-initial"
           >
             Previous
           </Button>
@@ -642,7 +643,7 @@ const Onboarding = () => {
           <Button
             onClick={handleNext}
             disabled={currentStep === 4 && !safetyAcknowledged}
-            size="lg"
+            className="flex-1 sm:flex-initial"
           >
             {currentStep === totalSteps - 1 ? "Start Practicing" : "Next"}
           </Button>
