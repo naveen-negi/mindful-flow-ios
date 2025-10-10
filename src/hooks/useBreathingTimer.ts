@@ -83,6 +83,33 @@ export const useBreathingTimer = (
     }
   }, []);
 
+  const playRoundCompleteSound = useCallback(() => {
+    try {
+      const audioContext = new AudioContext();
+      
+      // Three ascending tones to indicate completion
+      [550, 660, 770].forEach((freq, index) => {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.value = freq;
+        oscillator.type = 'sine';
+        
+        const startTime = audioContext.currentTime + (index * 0.25);
+        gainNode.gain.setValueAtTime(0, startTime);
+        gainNode.gain.linearRampToValueAtTime(0.35, startTime + 0.05);
+        gainNode.gain.linearRampToValueAtTime(0, startTime + 0.3);
+        
+        oscillator.start(startTime);
+        oscillator.stop(startTime + 0.3);
+      });
+    } catch (error) {
+      console.log('Audio not available');
+    }
+  }, []);
+
   const playSingleBeep = useCallback(() => {
     try {
       const audioContext = new AudioContext();
@@ -138,7 +165,8 @@ export const useBreathingTimer = (
           setIsActive(false);
           return;
         }
-        // Pause between rounds to show pointer
+        // Pause between rounds to show pointer - play completion sound
+        playRoundCompleteSound();
         setIsPausedBetweenRounds(true);
         setIsActive(false);
         return;
@@ -163,7 +191,7 @@ export const useBreathingTimer = (
     
     playSingleBeep();
     triggerHaptic(nextPhase);
-  }, [currentPhase, currentRound, rounds, ratio, playSingleBeep, triggerHaptic]);
+  }, [currentPhase, currentRound, rounds, ratio, playSingleBeep, triggerHaptic, playRoundCompleteSound]);
 
   const startNextRound = useCallback(() => {
     setCurrentRound(prev => prev + 1);
