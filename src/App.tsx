@@ -9,6 +9,8 @@ import SessionComplete from "./pages/SessionComplete";
 import Progress from "./pages/Progress";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import Onboarding from "./pages/Onboarding";
+import Learn from "./pages/Learn";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +27,8 @@ function App() {
             <Route path="/session-complete" element={<SessionComplete />} />
             <Route path="/progress" element={<Progress />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/learn" element={<Learn />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

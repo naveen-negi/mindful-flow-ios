@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -6,13 +6,20 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { BreathingRatio } from '@/types/breathing';
 import { getSettings, saveSettings, calculateNextRatio } from '@/utils/storage';
-import { Play, Settings, BarChart3 } from 'lucide-react';
+import { Play, Settings, BarChart3, BookOpen } from 'lucide-react';
 
 const Home = () => {
   const navigate = useNavigate();
   const settings = getSettings();
   const [inhale, setInhale] = useState(settings.defaultRatio.inhale);
   const [rounds, setRounds] = useState(10);
+
+  useEffect(() => {
+    const onboardingComplete = localStorage.getItem("onboardingComplete");
+    if (!onboardingComplete) {
+      navigate("/onboarding");
+    }
+  }, [navigate]);
 
   const ratio: BreathingRatio = {
     inhale,
@@ -99,11 +106,11 @@ const Home = () => {
           </Button>
         </Card>
 
-        <div className="flex gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <Button
             onClick={() => navigate('/progress')}
             variant="outline"
-            className="flex-1 rounded-xl py-6"
+            className="rounded-xl py-6"
           >
             <BarChart3 className="mr-2 h-4 w-4" />
             Progress
@@ -111,10 +118,18 @@ const Home = () => {
           <Button
             onClick={() => navigate('/settings')}
             variant="outline"
-            className="flex-1 rounded-xl py-6"
+            className="rounded-xl py-6"
           >
             <Settings className="mr-2 h-4 w-4" />
             Settings
+          </Button>
+          <Button
+            onClick={() => navigate('/learn')}
+            variant="outline"
+            className="col-span-2 rounded-xl py-6"
+          >
+            <BookOpen className="mr-2 h-4 w-4" />
+            Learn About Pranayama
           </Button>
         </div>
 
