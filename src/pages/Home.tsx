@@ -42,8 +42,8 @@ const Home = () => {
   const nextRatio = calculateNextRatio(ratio, settings.progressionIncrement);
 
   return (
-    <div className="zen-texture flex min-h-screen flex-col p-6 pb-safe">
-      <header className="mb-8 text-center pt-safe">
+    <div className="zen-texture flex min-h-screen flex-col p-6 pb-safe pt-safe">
+      <header className="mb-8 text-center">
         <h1 className="mb-2 text-4xl font-serif font-semibold text-primary tracking-wide">
           Pranayama
         </h1>
