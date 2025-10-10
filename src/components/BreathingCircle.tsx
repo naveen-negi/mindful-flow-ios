@@ -64,7 +64,7 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
             transform: phase === 'inhale' || phase === 'hold' ? 'scale(1.1)' : 'scale(0.95)',
           }}
         >
-          <div className="text-center">
+          <div className="text-center animate-in fade-in-50 duration-700">
             <div className="text-7xl font-serif font-semibold" style={{ color: '#f8f6f1' }}>
               {timeRemaining}
             </div>
