@@ -88,13 +88,6 @@ const Home = () => {
               </div>
             </div>
 
-
-            <div className="rounded-xl border border-accent/20 bg-accent/5 p-4">
-              <p className="text-sm text-muted-foreground font-sans">
-                <strong className="text-foreground font-medium">Next progression:</strong> {nextRatio.inhale}:
-                {nextRatio.hold}:{nextRatio.exhale}
-              </p>
-            </div>
           </div>
 
           <Button

@@ -88,10 +88,9 @@ const Practice = () => {
       roundsCompleted: currentRound,
       roundsPlanned: rounds,
       duration,
-      feeling: 'stopped_early' as const,
     };
     savePracticeSession(session);
-    navigate('/session-complete', { state: { session } });
+    navigate('/');
   };
 
   const totalPhaseTime = 
@@ -190,31 +189,12 @@ const Practice = () => {
               </div>
             </div>
 
-            <div className="space-y-3">
-              <Button
-                onClick={() => navigate('/session-complete', { state: { 
-                  session: {
-                    id: Date.now().toString(),
-                    date: new Date(),
-                    ratio,
-                    roundsCompleted: rounds,
-                    roundsPlanned: rounds,
-                    duration: Math.floor((Date.now() - startTime) / 1000),
-                  }
-                }})}
-                className="w-full py-6 text-lg font-medium rounded-xl"
-              >
-                Log Feeling
-              </Button>
-              
-              <Button
-                onClick={() => navigate('/')}
-                variant="outline"
-                className="w-full rounded-xl"
-              >
-                Return Home
-              </Button>
-            </div>
+            <Button
+              onClick={() => navigate('/')}
+              className="w-full py-6 text-lg font-medium rounded-xl"
+            >
+              Return Home
+            </Button>
           </Card>
         </div>
       )}
