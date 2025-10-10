@@ -49,14 +49,22 @@ const Home = () => {
               <Label htmlFor="inhale" className="text-foreground">
                 Inhale Duration (seconds)
               </Label>
+              <p className="text-xs text-muted-foreground mb-2">
+                Hold and exhale will adjust automatically (1:4:2 ratio)
+              </p>
               <Input
                 id="inhale"
                 type="number"
                 min="1"
                 max="20"
                 value={inhale}
-                onChange={(e) => setInhale(Number(e.target.value))}
-                className="mt-2 border-primary/30 bg-background/50 text-foreground"
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  if (value >= 1 && value <= 20) {
+                    setInhale(value);
+                  }
+                }}
+                className="mt-2 border-primary/30 bg-background/50 text-foreground text-lg font-semibold"
               />
             </div>
 

@@ -15,32 +15,37 @@ export const useBreathingTimer = (
   
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const phaseStartTimeRef = useRef<number>(0);
+  const phaseDurationRef = useRef<number>(0);
 
   const playPhaseSound = useCallback((phase: BreathPhase) => {
-    const audioContext = new AudioContext();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
+    try {
+      const audioContext = new AudioContext();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
 
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
 
-    // Different frequencies for different phases
-    const frequencies: Record<BreathPhase, number> = {
-      inhale: 432,
-      hold: 528,
-      exhale: 396,
-      rest: 256,
-    };
+      // Different frequencies for different phases
+      const frequencies: Record<BreathPhase, number> = {
+        inhale: 432,
+        hold: 528,
+        exhale: 396,
+        rest: 256,
+      };
 
-    oscillator.frequency.value = frequencies[phase];
-    oscillator.type = 'sine';
+      oscillator.frequency.value = frequencies[phase];
+      oscillator.type = 'sine';
 
-    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.1);
-    gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.5);
+      gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.1);
+      gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.5);
 
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.5);
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.5);
+    } catch (error) {
+      console.log('Audio not available');
+    }
   }, []);
 
   const triggerHaptic = useCallback(async (phase: BreathPhase) => {
@@ -63,43 +68,54 @@ export const useBreathingTimer = (
   }, [hapticEnabled]);
 
   const moveToNextPhase = useCallback(() => {
-    const phaseSequence: BreathPhase[] = ['inhale', 'hold', 'exhale', 'rest'];
-    const currentIndex = phaseSequence.indexOf(currentPhase);
+    let nextPhase: BreathPhase;
+    let nextDuration: number;
     
-    if (currentPhase === 'exhale') {
-      // Completed one round
-      if (currentRound >= rounds - 1) {
-        setIsComplete(true);
-        setIsActive(false);
-        return;
+    if (currentPhase === 'rest' || currentPhase === 'exhale') {
+      // Move to inhale (start of new round or first phase)
+      if (currentPhase === 'exhale') {
+        // Just completed a round
+        if (currentRound >= rounds - 1) {
+          setIsComplete(true);
+          setIsActive(false);
+          return;
+        }
+        setCurrentRound(prev => prev + 1);
       }
-      setCurrentRound(prev => prev + 1);
-      setCurrentPhase('inhale');
-      setTimeRemaining(ratio.inhale);
+      nextPhase = 'inhale';
+      nextDuration = ratio.inhale;
+    } else if (currentPhase === 'inhale') {
+      nextPhase = 'hold';
+      nextDuration = ratio.hold;
     } else {
-      const nextPhase = phaseSequence[currentIndex + 1];
-      setCurrentPhase(nextPhase);
-      
-      if (nextPhase === 'hold') {
-        setTimeRemaining(ratio.hold);
-      } else if (nextPhase === 'exhale') {
-        setTimeRemaining(ratio.exhale);
-      } else if (nextPhase === 'rest') {
-        setTimeRemaining(2); // 2 second rest between rounds
-      }
+      // currentPhase === 'hold'
+      nextPhase = 'exhale';
+      nextDuration = ratio.exhale;
     }
 
-    playPhaseSound(currentPhase);
-    triggerHaptic(currentPhase);
+    console.log(`Moving to ${nextPhase} for ${nextDuration} seconds`);
+    
+    setCurrentPhase(nextPhase);
+    setTimeRemaining(nextDuration);
+    phaseDurationRef.current = nextDuration;
     phaseStartTimeRef.current = Date.now();
+    
+    playPhaseSound(nextPhase);
+    triggerHaptic(nextPhase);
   }, [currentPhase, currentRound, rounds, ratio, playPhaseSound, triggerHaptic]);
 
   useEffect(() => {
-    if (!isActive) return;
+    if (!isActive) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      return;
+    }
 
     intervalRef.current = setInterval(() => {
-      const elapsed = Math.floor((Date.now() - phaseStartTimeRef.current) / 1000);
-      const remaining = timeRemaining - elapsed;
+      const elapsed = (Date.now() - phaseStartTimeRef.current) / 1000;
+      const remaining = Math.ceil(phaseDurationRef.current - elapsed);
 
       if (remaining <= 0) {
         moveToNextPhase();
@@ -113,14 +129,16 @@ export const useBreathingTimer = (
         clearInterval(intervalRef.current);
       }
     };
-  }, [isActive, timeRemaining, moveToNextPhase]);
+  }, [isActive, moveToNextPhase]);
 
   const start = useCallback(() => {
+    console.log('Starting practice with ratio:', ratio);
     setIsActive(true);
     setCurrentPhase('inhale');
     setCurrentRound(0);
     setTimeRemaining(ratio.inhale);
     setIsComplete(false);
+    phaseDurationRef.current = ratio.inhale;
     phaseStartTimeRef.current = Date.now();
     playPhaseSound('inhale');
     triggerHaptic('inhale');
@@ -128,6 +146,10 @@ export const useBreathingTimer = (
 
   const pause = useCallback(() => {
     setIsActive(false);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   }, []);
 
   const resume = useCallback(() => {
@@ -141,6 +163,10 @@ export const useBreathingTimer = (
     setCurrentRound(0);
     setTimeRemaining(0);
     setIsComplete(false);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   }, []);
 
   return {
