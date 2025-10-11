@@ -52,6 +52,7 @@ export const scheduleDailyPointerNotifications = async () => {
             minute: 0
           },
           allowWhileIdle: true,
+          repeats: true,
         },
         sound: undefined,
         attachments: undefined,
