@@ -4,7 +4,7 @@ const SESSIONS_KEY = 'pranayama_sessions';
 const SETTINGS_KEY = 'pranayama_settings';
 
 export const defaultSettings: PracticeSettings = {
-  defaultRatio: { inhale: 4, hold: 16, exhale: 8 },
+  defaultRatio: { inhale: 8, hold: 32, exhale: 16 },
   progressionIncrement: 1,
   audioEnabled: true,
   hapticEnabled: true,

@@ -164,6 +164,10 @@ export const useBreathingTimer = (
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
   }, []);
 
   const resume = useCallback(() => {
@@ -180,6 +184,10 @@ export const useBreathingTimer = (
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
+    }
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
     }
   }, []);
 
