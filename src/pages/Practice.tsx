@@ -9,6 +9,7 @@ import { BreathingRatio } from '@/types/breathing';
 import { savePracticeSession, getSettings } from '@/utils/storage';
 import { getRandomPointer } from '@/data/pointers';
 import { Pause, Play, X } from 'lucide-react';
+import { KeepAwake } from '@capacitor-community/keep-awake';
 
 const Practice = () => {
   const location = useLocation();
@@ -55,6 +56,31 @@ const Practice = () => {
       navigate('/');
     }
   }, [location.state, navigate]);
+
+  // Keep screen awake during practice
+  useEffect(() => {
+    const enableKeepAwake = async () => {
+      try {
+        await KeepAwake.keepAwake();
+      } catch (error) {
+        console.log('KeepAwake not available:', error);
+      }
+    };
+
+    const disableKeepAwake = async () => {
+      try {
+        await KeepAwake.allowSleep();
+      } catch (error) {
+        console.log('KeepAwake not available:', error);
+      }
+    };
+
+    enableKeepAwake();
+
+    return () => {
+      disableKeepAwake();
+    };
+  }, []);
 
   // Countdown effect
   useEffect(() => {
