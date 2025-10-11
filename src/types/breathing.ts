@@ -23,4 +23,5 @@ export interface PracticeSettings {
   audioEnabled: boolean;
   hapticEnabled: boolean;
   voiceGuidanceEnabled: boolean;
+  notificationsEnabled?: boolean;
 }

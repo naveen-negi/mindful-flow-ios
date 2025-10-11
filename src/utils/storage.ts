@@ -9,6 +9,7 @@ export const defaultSettings: PracticeSettings = {
   audioEnabled: true,
   hapticEnabled: true,
   voiceGuidanceEnabled: false,
+  notificationsEnabled: false,
 };
 
 export const savePracticeSession = (session: PracticeSession): void => {

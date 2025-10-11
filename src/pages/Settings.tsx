@@ -6,8 +6,13 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 import { getSettings, saveSettings } from '@/utils/storage';
-import { ChevronLeft, Save } from 'lucide-react';
+import { ChevronLeft, Save, Bell } from 'lucide-react';
 import { toast } from 'sonner';
+import { 
+  requestNotificationPermission, 
+  scheduleDailyPointerNotifications, 
+  cancelAllNotifications 
+} from '@/utils/notifications';
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -17,6 +22,24 @@ const Settings = () => {
   const [hapticEnabled, setHapticEnabled] = useState(currentSettings.hapticEnabled);
   const [voiceGuidanceEnabled, setVoiceGuidanceEnabled] = useState(currentSettings.voiceGuidanceEnabled);
   const [progressionIncrement, setProgressionIncrement] = useState(currentSettings.progressionIncrement);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(currentSettings.notificationsEnabled || false);
+
+  const handleNotificationToggle = async (enabled: boolean) => {
+    if (enabled) {
+      const granted = await requestNotificationPermission();
+      if (granted) {
+        await scheduleDailyPointerNotifications();
+        setNotificationsEnabled(true);
+        toast.success('Daily pointer notifications enabled');
+      } else {
+        toast.error('Notification permission denied');
+      }
+    } else {
+      await cancelAllNotifications();
+      setNotificationsEnabled(false);
+      toast.success('Notifications disabled');
+    }
+  };
 
   const handleSave = () => {
     const newSettings = {
@@ -25,6 +48,7 @@ const Settings = () => {
       hapticEnabled,
       voiceGuidanceEnabled,
       progressionIncrement,
+      notificationsEnabled,
     };
     
     saveSettings(newSettings);
@@ -94,6 +118,27 @@ const Settings = () => {
                     onCheckedChange={setVoiceGuidanceEnabled}
                   />
                 </div>
+              </div>
+            </div>
+
+            <div className="border-t border-border pt-6">
+              <h2 className="mb-4 text-lg font-semibold text-foreground flex items-center gap-2">
+                <Bell className="h-5 w-5" />
+                Daily Reminders
+              </h2>
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="notifications" className="text-foreground">Pointer Notifications</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Receive 4 daily self-inquiry pointers (8 AM, 12 PM, 4 PM, 8 PM)
+                  </p>
+                </div>
+                <Switch
+                  id="notifications"
+                  checked={notificationsEnabled}
+                  onCheckedChange={handleNotificationToggle}
+                />
               </div>
             </div>
 
