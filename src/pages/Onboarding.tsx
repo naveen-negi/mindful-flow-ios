@@ -146,7 +146,7 @@ const Onboarding = () => {
       </div>
 
       {/* Fixed navigation buttons */}
-      <div className="flex-shrink-0 border-t bg-background px-4 py-6 pb-8 sm:py-4">
+      <div className="flex-shrink-0 border-t bg-background px-4 pt-4 pb-16 sm:py-4">
         <div className="container max-w-4xl mx-auto flex justify-between items-center gap-3">
           <Button
             variant="outline"
