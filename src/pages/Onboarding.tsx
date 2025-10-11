@@ -35,11 +35,14 @@ const Onboarding = () => {
   const steps = [
     // Step 0: Welcome + What is 1:4:2
     <div key="welcome" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
-      <img src={welcomeImage} alt="Welcome to 1:4:2 Breathing" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
+      <img src={welcomeImage} alt="Sahita Kumbhaka Pranayama" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
       <div className="text-center space-y-4">
-        <h1 className="text-3xl sm:text-4xl font-bold">Welcome to 1:4:2</h1>
+        <h1 className="text-3xl sm:text-4xl font-bold">Sahita Kumbhaka</h1>
+        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+          "Sahita" means "associated" or "accompanied" - referring to breath retention that's accompanied by inhalation and exhalation (as opposed to spontaneous retention).
+        </p>
         <p className="text-base sm:text-lg font-semibold">
-          A 500-year-old breathing practice<br />for calm and awareness
+          When practiced with the 1:4:2 ratio,<br />it's classical Sahita Kumbhaka
         </p>
         
         <div className="bg-secondary/30 p-6 rounded-2xl space-y-3">
@@ -148,18 +151,19 @@ const Onboarding = () => {
       {/* Fixed navigation buttons */}
       <div className="flex-shrink-0 border-t bg-background px-4 pt-4 pb-16 sm:py-4">
         <div className="container max-w-4xl mx-auto flex justify-between items-center gap-3">
-          <Button
-            variant="outline"
-            onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
-            disabled={currentStep === 0}
-            className="flex-1 sm:flex-initial min-w-[100px]"
-          >
-            Previous
-          </Button>
+          {currentStep > 0 && (
+            <Button
+              variant="outline"
+              onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+              className="flex-1 sm:flex-initial min-w-[100px]"
+            >
+              Previous
+            </Button>
+          )}
 
           <Button
             onClick={handleNext}
-            className="flex-1 sm:flex-initial min-w-[100px]"
+            className={`flex-1 sm:flex-initial min-w-[100px] ${currentStep === 0 ? 'w-full' : ''}`}
           >
             {currentStep === totalSteps - 1 ? "Start Practicing" : "Next"}
           </Button>
