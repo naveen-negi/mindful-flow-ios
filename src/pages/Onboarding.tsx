@@ -38,11 +38,11 @@ const Onboarding = () => {
       <img src={welcomeImage} alt="Sahita Kumbhaka Pranayama" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
       <div className="text-center space-y-4">
         <h1 className="text-3xl sm:text-4xl font-bold">Sahita Kumbhaka</h1>
-        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-          "Sahita" means "associated" or "accompanied" - referring to breath retention that's accompanied by inhalation and exhalation (as opposed to spontaneous retention).
-        </p>
         <p className="text-base sm:text-lg font-semibold">
-          When practiced with the 1:4:2 ratio,<br />it's classical Sahita Kumbhaka
+          Master Your Breath, Transform Your Mind
+        </p>
+        <p className="text-base text-muted-foreground leading-relaxed px-4">
+          This app teaches Sahita Kumbhaka—the classical pranayama technique using the sacred 1:4:2 ratio.
         </p>
         
         <div className="bg-secondary/30 p-6 rounded-2xl space-y-3">
