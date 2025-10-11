@@ -127,7 +127,7 @@ const Onboarding = () => {
   ];
 
   return (
-    <div className="h-screen flex flex-col bg-background overflow-hidden">
+    <div className="zen-texture h-screen flex flex-col bg-background overflow-hidden">
       {/* Fixed header with progress */}
       <div className="flex-shrink-0 border-b bg-background px-4 py-3 sm:py-4">
         <div className="container max-w-4xl mx-auto">
