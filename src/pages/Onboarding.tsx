@@ -1,15 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import welcomeImage from "@/assets/onboarding-welcome.jpg";
-import ratioImage from "@/assets/onboarding-ratio.jpg";
-import traditionImage from "@/assets/onboarding-tradition.jpg";
-import scienceImage from "@/assets/onboarding-science.jpg";
-import practiceImage from "@/assets/onboarding-practice.jpg";
-import progressionImage from "@/assets/onboarding-progression.jpg";
-import readyImage from "@/assets/onboarding-ready.jpg";
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -35,7 +28,6 @@ const Onboarding = () => {
   const steps = [
     // Step 0: Welcome + What is 1:4:2
     <div key="welcome" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
-      <img src={welcomeImage} alt="Sahita Kumbhaka Pranayama" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
       <div className="text-center space-y-4">
         <h1 className="text-3xl sm:text-4xl font-bold">Sahita Kumbhaka</h1>
         <p className="text-base sm:text-lg font-semibold">
@@ -61,7 +53,6 @@ const Onboarding = () => {
 
     // Step 1: How to Practice
     <div key="practice" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
-      <img src={practiceImage} alt="How to Practice" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
       <div className="text-center space-y-3">
         <h1 className="text-3xl font-bold">How to Practice</h1>
         <p className="text-base text-muted-foreground">The three-part cycle</p>
@@ -99,7 +90,6 @@ const Onboarding = () => {
 
     // Step 2: Ready to Begin
     <div key="ready" className="space-y-6 animate-in fade-in-50 duration-500 px-2">
-      <img src={readyImage} alt="You're Ready" className="w-full h-48 object-cover rounded-2xl shadow-lg" />
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-bold">You're Ready</h1>
         <p className="text-base text-muted-foreground">
@@ -127,7 +117,22 @@ const Onboarding = () => {
   ];
 
   return (
-    <div className="zen-texture h-screen flex flex-col bg-background overflow-hidden">
+    <div className="zen-texture h-screen flex flex-col bg-background overflow-hidden relative">
+      {/* Zen background decoration */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+        <svg width="600" height="600" viewBox="0 0 600 600" className="w-full max-w-2xl">
+          <circle
+            cx="300"
+            cy="300"
+            r="250"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            opacity="0.3"
+          />
+        </svg>
+      </div>
+      
       {/* Fixed header with progress */}
       <div className="flex-shrink-0 border-b bg-background px-4 py-3 sm:py-4">
         <div className="container max-w-4xl mx-auto">
