@@ -127,18 +127,23 @@ const Settings = () => {
                 Daily Reminders
               </h2>
               
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="notifications" className="text-foreground">Pointer Notifications</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Receive 4 daily self-inquiry pointers (8 AM, 12 PM, 4 PM, 8 PM)
-                  </p>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <Label htmlFor="notifications" className="text-foreground">Zen Koans & Nonduality Pointers</Label>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Receive 4 daily contemplative messages—nonduality pointers and zen koans to ponder throughout your day
+                    </p>
+                    <p className="text-xs text-muted-foreground/80 mt-2 italic">
+                      Delivered at 8 AM, 12 PM, 4 PM, and 8 PM
+                    </p>
+                  </div>
+                  <Switch
+                    id="notifications"
+                    checked={notificationsEnabled}
+                    onCheckedChange={handleNotificationToggle}
+                  />
                 </div>
-                <Switch
-                  id="notifications"
-                  checked={notificationsEnabled}
-                  onCheckedChange={handleNotificationToggle}
-                />
               </div>
             </div>
 
