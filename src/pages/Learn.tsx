@@ -9,9 +9,9 @@ const Learn = () => {
 
   return (
     <div className="min-h-screen bg-background pb-safe">
-      <div className="container max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
-        {/* Header with larger back button for mobile */}
-        <div className="mb-4 sm:mb-8">
+      <div className="container max-w-6xl mx-auto px-3 sm:px-4 pt-safe">
+        {/* Header with back button - added safe area for mobile status bar */}
+        <div className="mb-4 sm:mb-8 pt-4 sm:pt-8">
           <Button 
             variant="ghost" 
             onClick={() => navigate(-1)} 
