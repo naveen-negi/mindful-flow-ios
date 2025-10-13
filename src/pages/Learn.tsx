@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { X, BookOpen, Brain, Heart, Shield, TrendingUp, MessageCircle, HelpCircle, Lightbulb, FileText } from "lucide-react";
+import { ArrowLeft, BookOpen, Brain, Heart, Shield, TrendingUp, MessageCircle, HelpCircle, Lightbulb, FileText } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Learn = () => {
@@ -9,22 +9,25 @@ const Learn = () => {
 
   return (
     <div className="min-h-screen bg-background pb-safe">
-      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 pt-safe">
-        <div className="container max-w-6xl mx-auto px-3 sm:px-4 flex items-center h-14">
-          <Button
-            variant="ghost"
-            onClick={() => navigate(-1)}
-            size="icon"
-            aria-label="Close"
-            className="h-12 w-12 -ml-2"
-          >
-            <X className="h-5 w-5" />
-          </Button>
-        </div>
-      </header>
-      <div className="container max-w-6xl mx-auto px-3 sm:px-4">
+      {/* Floating back button - bottom-left, safe-area aware */}
+      <div
+        className="fixed left-4 sm:left-6 z-50"
+        style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
+      >
+        <Button
+          variant="secondary"
+          onClick={() => navigate(-1)}
+          size="lg"
+          aria-label="Back"
+          className="shadow"
+        >
+          <ArrowLeft className="h-5 w-5 mr-2" />
+          Back
+        </Button>
+      </div>
+      <div className="container max-w-6xl mx-auto px-3 sm:px-4 pt-safe">
         {/* Page header */}
-        <div className="mb-4 sm:mb-8 pt-4 sm:pt-8">
+        <div className="mb-4 sm:mb-8 pt-2 sm:pt-4">
           <h1 className="text-2xl sm:text-4xl font-bold mb-2">Learn About Pranayama</h1>
           <p className="text-sm sm:text-base text-muted-foreground">
             Everything you need to know about the 1:4:2 breathing technique
