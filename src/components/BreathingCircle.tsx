@@ -22,6 +22,13 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
     "This is \"three-part breath\" or complete yogic breathing"
   ];
   
+  const holdInstructions = [
+    "At peak of inhalation, gently close the throat",
+    "Keep chest expanded but relaxed",
+    "Maintain stillness—no movement",
+    "Don't \"trap\" air forcefully"
+  ];
+  
   const exhaleInstructions = [
     "Gently open the throat",
     "Exhale slowly through mouth",
@@ -52,11 +59,16 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
     return () => clearTimeout(timer);
   }, [phase]);
   
-  // Cycle through instructions during inhale and exhale phases
+  // Cycle through instructions during inhale, hold, and exhale phases
   useEffect(() => {
-    if (phase === 'inhale' || phase === 'exhale') {
-      const instructions = phase === 'inhale' ? inhaleInstructions : exhaleInstructions;
-      const intervalDuration = (totalTime * 1000) / instructions.length;
+    if (phase === 'inhale' || phase === 'hold' || phase === 'exhale') {
+      const instructions = 
+        phase === 'inhale' ? inhaleInstructions : 
+        phase === 'hold' ? holdInstructions :
+        exhaleInstructions;
+      
+      // Longer duration per instruction so users have time to read
+      const intervalDuration = Math.max((totalTime * 1000) / instructions.length, 3000);
       
       const interval = setInterval(() => {
         setCurrentInstructionIndex((prev) => (prev + 1) % instructions.length);
@@ -99,6 +111,8 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
   const getCurrentInstruction = () => {
     if (phase === 'inhale') {
       return inhaleInstructions[currentInstructionIndex];
+    } else if (phase === 'hold') {
+      return holdInstructions[currentInstructionIndex];
     } else if (phase === 'exhale') {
       return exhaleInstructions[currentInstructionIndex];
     }
