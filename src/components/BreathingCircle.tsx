@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { BreathPhase } from '@/types/breathing';
 import { cn } from '@/lib/utils';
 
@@ -12,19 +13,14 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
   const [isVisible, setIsVisible] = useState(false);
   const progress = totalTime > 0 ? (timeRemaining / totalTime) * 100 : 0;
   
-  // Calculate smooth scale based on phase progress
+  // Calculate smooth scale based on phase
   const getCircleScale = () => {
-    const progressRatio = totalTime > 0 ? (totalTime - timeRemaining) / totalTime : 0;
-    
     if (phase === 'inhale') {
-      // Gradually expand from 0.8 to 1.2
-      return 0.8 + (progressRatio * 0.4);
+      return 1.25;
     } else if (phase === 'hold') {
-      // Stay at expanded size
-      return 1.2;
+      return 1.25;
     } else if (phase === 'exhale') {
-      // Gradually shrink from 1.2 to 0.8
-      return 1.2 - (progressRatio * 0.4);
+      return 0.75;
     }
     return 0.9;
   };
@@ -72,25 +68,37 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
     <div className="flex flex-col items-center justify-center gap-8">
       <div className="relative flex items-center justify-center">
         {/* Outer glow ring */}
-        <div
+        <motion.div
           className={cn(
-            'absolute h-80 w-80 rounded-full transition-all duration-300 ease-out',
+            'absolute h-80 w-80 rounded-full',
             config.glow
           )}
           style={{
             backgroundColor: `${config.color}15`,
-            transform: `scale(${circleScale * 1.05})`,
+          }}
+          animate={{
+            scale: circleScale * 1.05,
+          }}
+          transition={{
+            duration: phase === 'inhale' ? totalTime : phase === 'exhale' ? totalTime : 0.5,
+            ease: "easeInOut",
           }}
         />
         
         {/* Main breathing circle */}
-        <div
-          className="relative flex h-72 w-72 items-center justify-center rounded-full transition-all duration-300 ease-out border-4"
+        <motion.div
+          className="relative flex h-72 w-72 items-center justify-center rounded-full border-4"
           style={{
             backgroundColor: config.color,
             borderColor: 'hsl(0 0% 24% / 0.7)',
             boxShadow: `0 0 ${40 * circleScale}px ${config.color}40`,
-            transform: `scale(${circleScale})`,
+          }}
+          animate={{
+            scale: circleScale,
+          }}
+          transition={{
+            duration: phase === 'inhale' ? totalTime : phase === 'exhale' ? totalTime : 0.5,
+            ease: "easeInOut",
           }}
         >
           <div 
@@ -106,7 +114,7 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
               {config.label}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Progress ring */}
         <svg
