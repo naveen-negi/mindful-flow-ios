@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface PointerViewProps {
   pointer: string;
@@ -11,6 +12,7 @@ interface PointerViewProps {
 
 const PointerView = ({ pointer, onContinue, currentRound, totalRounds }: PointerViewProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -20,6 +22,19 @@ const PointerView = ({ pointer, onContinue, currentRound, totalRounds }: Pointer
   return (
     <div className="zen-texture flex min-h-screen flex-col items-center justify-between p-6 pb-safe pt-safe">
       <div className="flex flex-col items-center justify-center flex-1 w-full max-w-md">
+        {/* Exit button */}
+        <div className="w-full flex justify-start mb-8">
+          <Button
+            onClick={() => navigate('/')}
+            variant="destructive"
+            size="sm"
+            className="rounded-lg font-sans"
+          >
+            <X className="mr-1 h-4 w-4" />
+            Exit Session
+          </Button>
+        </div>
+
         {/* Round indicator */}
         <div 
           className={`text-center mb-12 transition-all duration-700 ${

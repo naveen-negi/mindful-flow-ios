@@ -82,7 +82,14 @@ const Practice = () => {
     };
   }, []);
 
-  // Countdown effect
+  // Countdown effect - auto-start on mount
+  useEffect(() => {
+    if (!isActive && !isComplete && !isPausedBetweenRounds && countdown === null) {
+      setCountdown(3);
+      setIsCountingDown(true);
+    }
+  }, []);
+
   useEffect(() => {
     if (isCountingDown && countdown !== null) {
       if (countdown > 0) {
@@ -143,12 +150,12 @@ const Practice = () => {
   };
 
   const handleStartCountdown = () => {
-    setCountdown(5);
+    setCountdown(3);
     setIsCountingDown(true);
   };
 
   const handleContinueFromPointer = () => {
-    setCountdown(5);
+    setCountdown(3);
     setIsCountingDown(true);
   };
 
@@ -178,27 +185,7 @@ const Practice = () => {
       )}
 
       {!isActive && !isComplete && !isPausedBetweenRounds && !isCountingDown && (
-        <div className="flex flex-col items-center justify-center flex-1 w-full">
-          <Card className="border bg-card p-10 text-center max-w-md rounded-2xl" style={{ boxShadow: 'var(--shadow-card)' }}>
-            <h2 className="text-2xl font-serif font-semibold mb-6 text-foreground">Ready to Begin</h2>
-            <p className="text-muted-foreground mb-8 font-sans leading-relaxed">
-              Take a moment to find a comfortable position. Close your eyes when ready.
-            </p>
-            <div className="rounded-xl bg-muted/30 p-5 mb-8 border border-foreground/5">
-              <p className="text-sm font-sans text-foreground/60 mb-3 uppercase tracking-wide">Practice Settings</p>
-              <div className="text-xl font-serif font-semibold text-foreground">
-                {ratio.inhale}:{ratio.hold}:{ratio.exhale} × {rounds} rounds
-              </div>
-            </div>
-            <Button
-              onClick={handleStartCountdown}
-              className="w-full py-6 text-lg font-medium rounded-xl"
-            >
-              <Play className="mr-2 h-5 w-5" />
-              Begin Practice
-            </Button>
-          </Card>
-        </div>
+        <div className="hidden" />
       )}
 
       {isPausedBetweenRounds && !isCountingDown && (
