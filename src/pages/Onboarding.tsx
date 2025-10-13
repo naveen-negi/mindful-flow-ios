@@ -34,7 +34,7 @@ const Onboarding = () => {
           Master Your Breath, Transform Your Mind
         </p>
         <p className="text-base text-muted-foreground leading-relaxed px-4">
-          This app teaches Sahita Kumbhaka—the classical pranayama technique using the sacred 1:4:2 ratio.
+          This app teaches Sahita Kumbhaka—the classical pranayama technique using the sacred ratio for breath retention.
         </p>
         
         <div className="bg-secondary/30 p-6 rounded-2xl space-y-3">

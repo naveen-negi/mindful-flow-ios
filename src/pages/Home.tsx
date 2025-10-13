@@ -60,7 +60,7 @@ const Home = () => {
                 Inhale Duration (seconds)
               </Label>
               <p className="text-xs text-muted-foreground mb-3">
-                Hold and exhale will adjust automatically (1:4:2 ratio)
+                Hold and exhale will adjust automatically (Sahita Kumbhaka ratio)
               </p>
               
               {/* Preset buttons */}
@@ -108,7 +108,7 @@ const Home = () => {
             </div>
 
             <div className="rounded-xl bg-muted/30 p-5 border border-foreground/5">
-              <p className="mb-3 text-sm font-sans font-medium text-foreground/60 uppercase tracking-wide">Current Ratio (1:4:2)</p>
+              <p className="mb-3 text-sm font-sans font-medium text-foreground/60 uppercase tracking-wide">Sahita Kumbhaka (1:4:2)</p>
               <div className="flex items-center justify-between text-3xl font-serif font-semibold">
                 <div className="text-center">
                   <div className="text-[hsl(var(--phase-inhale))]">{ratio.inhale}</div>

@@ -173,7 +173,7 @@ const Settings = () => {
               <h2 className="mb-4 text-lg font-semibold text-foreground">About</h2>
               <p className="text-sm text-muted-foreground">
                 Pranayama Tracker helps you develop a consistent breathing practice
-                using the classical 1:4:2 ratio (inhale:hold:exhale).
+                using the classical Sahita Kumbhaka technique.
               </p>
               <p className="mt-3 text-sm italic text-muted-foreground">
                 "The breath is the bridge between body and mind."
