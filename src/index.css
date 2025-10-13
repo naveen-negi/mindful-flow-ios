@@ -160,4 +160,8 @@ All colors MUST be HSL.
         hsl(0 0% 24% / 0.02) 4px
       );
   }
+
+  /* iOS safe-area helpers */
+  .pt-safe { padding-top: calc(env(safe-area-inset-top) + 1rem); }
 }
+

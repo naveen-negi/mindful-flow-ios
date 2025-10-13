@@ -29,7 +29,7 @@ const Progress = () => {
     : { inhale: 4, hold: 16, exhale: 8 };
 
   return (
-    <div className="min-h-screen zen-texture p-6 pt-24">
+    <div className="min-h-screen zen-texture p-6 pt-safe">
       <div className="mx-auto max-w-2xl">
         <div className="mb-6 flex items-center gap-4">
           <Button
