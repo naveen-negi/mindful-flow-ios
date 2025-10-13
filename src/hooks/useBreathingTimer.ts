@@ -48,20 +48,21 @@ export const useBreathingTimer = (
           oscillator.connect(gainNode);
           gainNode.connect(audioContextRef.current.destination);
           
-          oscillator.frequency.value = 800; // 800 Hz - pleasant beep
+          oscillator.frequency.value = 600; // Lower, softer tone
           oscillator.type = 'sine';
           
-          gainNode.gain.setValueAtTime(0.3, audioContextRef.current.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContextRef.current.currentTime + 0.15);
+          // Much quieter and shorter
+          gainNode.gain.setValueAtTime(0.08, audioContextRef.current.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContextRef.current.currentTime + 0.08);
           
           oscillator.start(audioContextRef.current.currentTime);
-          oscillator.stop(audioContextRef.current.currentTime + 0.15);
+          oscillator.stop(audioContextRef.current.currentTime + 0.08);
         }, delay);
       };
       
       playTone(0);
       if (double) {
-        playTone(250); // Second beep after 250ms
+        playTone(180); // Second beep after 180ms
       }
     } catch (error) {
       console.log('Audio not available');
