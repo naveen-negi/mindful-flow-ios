@@ -162,6 +162,13 @@ All colors MUST be HSL.
   }
 
   /* iOS safe-area helpers */
-  .pt-safe { padding-top: calc(env(safe-area-inset-top) + 1rem); }
+  .pt-safe {
+    /* Base spacing for non-iOS browsers */
+    padding-top: 24px;
+    /* Legacy iOS fallback */
+    padding-top: calc(constant(safe-area-inset-top) + 24px);
+    /* Modern iOS */
+    padding-top: calc(env(safe-area-inset-top) + 24px);
+  }
 }
 
