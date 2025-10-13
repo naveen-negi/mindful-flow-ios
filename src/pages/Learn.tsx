@@ -1,5 +1,4 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, BookOpen, Brain, Heart, Shield, TrendingUp, MessageCircle, HelpCircle, Lightbulb, FileText } from "lucide-react";
@@ -11,10 +10,15 @@ const Learn = () => {
   return (
     <div className="min-h-screen bg-background pb-safe">
       <div className="container max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
-        {/* Header */}
+        {/* Header with larger back button for mobile */}
         <div className="mb-4 sm:mb-8">
-          <Button variant="ghost" onClick={() => navigate(-1)} className="mb-3 sm:mb-4 text-sm sm:text-base">
-            <ArrowLeft className="h-4 w-4 mr-2" />
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate(-1)} 
+            className="mb-3 sm:mb-4 text-base sm:text-lg h-12 sm:h-10 px-6 sm:px-4 -ml-2"
+            size="lg"
+          >
+            <ArrowLeft className="h-5 w-5 sm:h-4 sm:w-4 mr-2" />
             Back
           </Button>
           <h1 className="text-2xl sm:text-4xl font-bold mb-2">Learn About Pranayama</h1>
@@ -23,18 +27,17 @@ const Learn = () => {
           </p>
         </div>
 
-        {/* Main content with tabs */}
-        <Tabs defaultValue="basics" className="space-y-4 sm:space-y-6">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 h-auto gap-1">
-            <TabsTrigger value="basics" className="text-xs sm:text-sm py-2">Basics</TabsTrigger>
-            <TabsTrigger value="tradition" className="text-xs sm:text-sm py-2">Tradition</TabsTrigger>
-            <TabsTrigger value="science" className="text-xs sm:text-sm py-2">Science</TabsTrigger>
-            <TabsTrigger value="practice" className="text-xs sm:text-sm py-2">Practice</TabsTrigger>
-            <TabsTrigger value="faq" className="text-xs sm:text-sm py-2 col-span-3 lg:col-span-1">FAQ</TabsTrigger>
-          </TabsList>
-
-          {/* Basics Tab */}
-          <TabsContent value="basics" className="space-y-4 sm:space-y-6">
+        {/* Main content with accordion navigation */}
+        <Accordion type="single" collapsible defaultValue="basics" className="space-y-4">
+          {/* Basics Section */}
+          <AccordionItem value="basics" className="border rounded-lg px-4 bg-card">
+            <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+              <div className="flex items-center gap-2">
+                <BookOpen className="h-5 w-5" />
+                <span>Basics</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="space-y-4 sm:space-y-6 pt-4">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -244,10 +247,18 @@ const Learn = () => {
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
+            </AccordionContent>
+          </AccordionItem>
 
-          {/* Tradition Tab */}
-          <TabsContent value="tradition" className="space-y-6">
+          {/* Tradition Section */}
+          <AccordionItem value="tradition" className="border rounded-lg px-4 bg-card">
+            <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+              <div className="flex items-center gap-2">
+                <Lightbulb className="h-5 w-5" />
+                <span>Tradition</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="space-y-6 pt-4">
             <Card>
               <CardHeader>
                 <CardTitle>The Ancient Timeline</CardTitle>
@@ -378,10 +389,18 @@ const Learn = () => {
                 </p>
               </CardContent>
             </Card>
-          </TabsContent>
+            </AccordionContent>
+          </AccordionItem>
 
-          {/* Science Tab */}
-          <TabsContent value="science" className="space-y-6">
+          {/* Science Section */}
+          <AccordionItem value="science" className="border rounded-lg px-4 bg-card">
+            <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+              <div className="flex items-center gap-2">
+                <Brain className="h-5 w-5" />
+                <span>Science</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="space-y-6 pt-4">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -519,10 +538,18 @@ const Learn = () => {
                 <p className="text-xs text-muted-foreground mt-3">Source: Physiopedia Medical Database</p>
               </CardContent>
             </Card>
-          </TabsContent>
+            </AccordionContent>
+          </AccordionItem>
 
-          {/* Practice Tab */}
-          <TabsContent value="practice" className="space-y-6">
+          {/* Practice Section */}
+          <AccordionItem value="practice" className="border rounded-lg px-4 bg-card">
+            <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+              <div className="flex items-center gap-2">
+                <Shield className="h-5 w-5" />
+                <span>Practice Tips & Safety</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="space-y-6 pt-4">
             <Card className="border-destructive">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-destructive">
@@ -637,14 +664,22 @@ const Learn = () => {
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
+            </AccordionContent>
+          </AccordionItem>
 
-          {/* FAQ Tab */}
-          <TabsContent value="faq" className="space-y-6">
+          {/* FAQ Section */}
+          <AccordionItem value="faq" className="border rounded-lg px-4 bg-card">
+            <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+              <div className="flex items-center gap-2">
+                <HelpCircle className="h-5 w-5" />
+                <span>FAQ</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="space-y-6 pt-4">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <HelpCircle className="h-6 w-6" />
+                  <MessageCircle className="h-6 w-6" />
                   Frequently Asked Questions
                 </CardTitle>
               </CardHeader>
@@ -757,8 +792,9 @@ const Learn = () => {
                 <p className="font-semibold">You assume all risks associated with using this app.</p>
               </CardContent>
             </Card>
-          </TabsContent>
-        </Tabs>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </div>
   );
