@@ -164,12 +164,6 @@ const Home = () => {
             Learn About Pranayama
           </Button>
         </div>
-
-        <Card className="border-accent/20 bg-accent/5 p-5 rounded-2xl">
-          <p className="text-center text-base font-serif italic text-foreground/70 leading-relaxed">
-            "Pranayama is not a competition with yourself or others. Begin where you are."
-          </p>
-        </Card>
       </div>
     </div>
   );

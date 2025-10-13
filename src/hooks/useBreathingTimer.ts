@@ -32,13 +32,25 @@ export const useBreathingTimer = (
     };
   }, []);
 
-  const playSingingBowl = useCallback(() => {
+  const playSingingBowl = useCallback((double: boolean = false) => {
     try {
       if (audioRef.current) {
         audioRef.current.currentTime = 0;
         audioRef.current.play().catch(error => {
           console.log('Audio playback failed:', error);
         });
+        
+        // Play a second time for start of practice
+        if (double) {
+          setTimeout(() => {
+            if (audioRef.current) {
+              audioRef.current.currentTime = 0;
+              audioRef.current.play().catch(error => {
+                console.log('Audio playback failed:', error);
+              });
+            }
+          }, 300);
+        }
       }
     } catch (error) {
       console.log('Audio not available');
@@ -154,7 +166,7 @@ export const useBreathingTimer = (
     setIsComplete(false);
     phaseDurationRef.current = ratio.inhale;
     phaseStartTimeRef.current = Date.now();
-    playSingingBowl();
+    playSingingBowl(true); // Double beep for start
     triggerHaptic('inhale');
   }, [ratio, playSingingBowl, triggerHaptic]);
 

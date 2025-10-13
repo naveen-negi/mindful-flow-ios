@@ -262,12 +262,22 @@ const Practice = () => {
               </div>
             </div>
 
-            <Button
-              onClick={() => navigate('/')}
-              className="w-full py-6 text-lg font-medium rounded-xl"
-            >
-              Return Home
-            </Button>
+            <div className="space-y-3 w-full">
+              <Button
+                onClick={() => navigate('/')}
+                className="w-full py-6 text-lg font-medium rounded-xl"
+              >
+                Return Home
+              </Button>
+              <Button
+                onClick={handleEnd}
+                variant="outline"
+                className="w-full py-6 text-lg font-medium rounded-xl"
+              >
+                <X className="mr-2 h-4 w-4" />
+                Exit Session
+              </Button>
+            </div>
           </Card>
         </div>
       )}
