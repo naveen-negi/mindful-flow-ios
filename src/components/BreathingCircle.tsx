@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { BreathPhase } from '@/types/breathing';
 import { cn } from '@/lib/utils';
 
@@ -11,7 +11,24 @@ interface BreathingCircleProps {
 
 const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCircleProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [currentInstructionIndex, setCurrentInstructionIndex] = useState(0);
   const progress = totalTime > 0 ? (timeRemaining / totalTime) * 100 : 0;
+  
+  const inhaleInstructions = [
+    "Inhale slowly through nose",
+    "Begin by expanding the belly (diaphragmatic breathing)",
+    "Then expand the ribs",
+    "Finally fill the upper chest",
+    "This is \"three-part breath\" or complete yogic breathing"
+  ];
+  
+  const exhaleInstructions = [
+    "Gently open the throat",
+    "Exhale slowly through mouth",
+    "Begin by releasing from upper chest",
+    "Then ribs contract",
+    "Finally pull navel toward spine (complete emptying)"
+  ];
   
   // Calculate smooth scale based on phase
   const getCircleScale = () => {
@@ -30,9 +47,24 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
   // Trigger fade-in animation when phase changes
   useEffect(() => {
     setIsVisible(false);
+    setCurrentInstructionIndex(0);
     const timer = setTimeout(() => setIsVisible(true), 50);
     return () => clearTimeout(timer);
   }, [phase]);
+  
+  // Cycle through instructions during inhale and exhale phases
+  useEffect(() => {
+    if (phase === 'inhale' || phase === 'exhale') {
+      const instructions = phase === 'inhale' ? inhaleInstructions : exhaleInstructions;
+      const intervalDuration = (totalTime * 1000) / instructions.length;
+      
+      const interval = setInterval(() => {
+        setCurrentInstructionIndex((prev) => (prev + 1) % instructions.length);
+      }, intervalDuration);
+      
+      return () => clearInterval(interval);
+    }
+  }, [phase, totalTime]);
   
   
   const phaseConfig = {
@@ -63,6 +95,17 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
   };
 
   const config = phaseConfig[phase];
+  
+  const getCurrentInstruction = () => {
+    if (phase === 'inhale') {
+      return inhaleInstructions[currentInstructionIndex];
+    } else if (phase === 'exhale') {
+      return exhaleInstructions[currentInstructionIndex];
+    }
+    return null;
+  };
+  
+  const currentInstruction = getCurrentInstruction();
 
   return (
     <div className="flex flex-col items-center justify-center gap-8">
@@ -143,6 +186,24 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
             opacity="0.6"
           />
         </svg>
+      </div>
+      
+      {/* Instructional text below circle */}
+      <div className="h-16 flex items-center justify-center px-4">
+        <AnimatePresence mode="wait">
+          {currentInstruction && (
+            <motion.p
+              key={`${phase}-${currentInstructionIndex}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="text-sm text-muted-foreground text-center font-sans max-w-md"
+            >
+              {currentInstruction}
+            </motion.p>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
