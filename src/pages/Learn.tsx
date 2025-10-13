@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, BookOpen, Brain, Heart, Shield, TrendingUp, MessageCircle, HelpCircle, Lightbulb, FileText } from "lucide-react";
+import { X, BookOpen, Brain, Heart, Shield, TrendingUp, MessageCircle, HelpCircle, Lightbulb, FileText } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Learn = () => {
@@ -9,18 +9,22 @@ const Learn = () => {
 
   return (
     <div className="min-h-screen bg-background pb-safe">
-      <div className="container max-w-6xl mx-auto px-3 sm:px-4 pt-safe">
-        {/* Header with back button - added safe area for mobile status bar */}
-        <div className="mb-4 sm:mb-8 pt-4 sm:pt-8">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate(-1)} 
-            className="mb-3 sm:mb-4 text-base sm:text-lg h-12 sm:h-10 px-6 sm:px-4 -ml-2"
-            size="lg"
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 pt-safe">
+        <div className="container max-w-6xl mx-auto px-3 sm:px-4 flex items-center h-14">
+          <Button
+            variant="ghost"
+            onClick={() => navigate(-1)}
+            size="icon"
+            aria-label="Close"
+            className="h-12 w-12 -ml-2"
           >
-            <ArrowLeft className="h-5 w-5 sm:h-4 sm:w-4 mr-2" />
-            Back
+            <X className="h-5 w-5" />
           </Button>
+        </div>
+      </header>
+      <div className="container max-w-6xl mx-auto px-3 sm:px-4">
+        {/* Page header */}
+        <div className="mb-4 sm:mb-8 pt-4 sm:pt-8">
           <h1 className="text-2xl sm:text-4xl font-bold mb-2">Learn About Pranayama</h1>
           <p className="text-sm sm:text-base text-muted-foreground">
             Everything you need to know about the 1:4:2 breathing technique
