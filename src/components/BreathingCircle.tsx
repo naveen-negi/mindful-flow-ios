@@ -11,6 +11,25 @@ interface BreathingCircleProps {
 const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCircleProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const progress = totalTime > 0 ? (timeRemaining / totalTime) * 100 : 0;
+  
+  // Calculate smooth scale based on phase progress
+  const getCircleScale = () => {
+    const progressRatio = totalTime > 0 ? (totalTime - timeRemaining) / totalTime : 0;
+    
+    if (phase === 'inhale') {
+      // Gradually expand from 0.8 to 1.2
+      return 0.8 + (progressRatio * 0.4);
+    } else if (phase === 'hold') {
+      // Stay at expanded size
+      return 1.2;
+    } else if (phase === 'exhale') {
+      // Gradually shrink from 1.2 to 0.8
+      return 1.2 - (progressRatio * 0.4);
+    }
+    return 0.9;
+  };
+  
+  const circleScale = getCircleScale();
 
   // Trigger fade-in animation when phase changes
   useEffect(() => {
@@ -55,23 +74,23 @@ const BreathingCircle = ({ phase, timeRemaining, totalTime }: BreathingCirclePro
         {/* Outer glow ring */}
         <div
           className={cn(
-            'absolute h-80 w-80 rounded-full transition-all duration-1000 ease-in-out',
+            'absolute h-80 w-80 rounded-full transition-all duration-300 ease-out',
             config.glow
           )}
           style={{
             backgroundColor: `${config.color}15`,
-            transform: phase === 'inhale' || phase === 'hold' ? 'scale(1.15)' : 'scale(1)',
+            transform: `scale(${circleScale * 1.05})`,
           }}
         />
         
         {/* Main breathing circle */}
         <div
-          className="relative flex h-72 w-72 items-center justify-center rounded-full transition-all duration-1000 ease-in-out border-4"
+          className="relative flex h-72 w-72 items-center justify-center rounded-full transition-all duration-300 ease-out border-4"
           style={{
             backgroundColor: config.color,
             borderColor: 'hsl(0 0% 24% / 0.7)',
-            boxShadow: `0 0 40px ${config.color}40`,
-            transform: phase === 'inhale' || phase === 'hold' ? 'scale(1.1)' : 'scale(0.95)',
+            boxShadow: `0 0 ${40 * circleScale}px ${config.color}40`,
+            transform: `scale(${circleScale})`,
           }}
         >
           <div 
