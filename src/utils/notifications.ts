@@ -24,32 +24,36 @@ export const checkNotificationPermission = async (): Promise<boolean> => {
 export const scheduleDailyPointerNotifications = async () => {
   try {
     // Cancel any existing notifications first
-    await LocalNotifications.cancel({ notifications: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }] });
+    const notificationsToCancel = Array.from({ length: 144 }, (_, i) => ({ id: i + 1 }));
+    await LocalNotifications.cancel({ notifications: notificationsToCancel });
 
     const now = new Date();
     const notifications: ScheduleOptions['notifications'] = [];
-    
-    // Schedule 4 notifications per day at: 8 AM, 12 PM, 4 PM, 8 PM
-    const hours = [8, 12, 16, 20];
-    
-    hours.forEach((hour, index) => {
+
+    // Schedule notifications every 10 minutes (144 notifications per day)
+    const intervalsPerDay = 144; // 24 hours * 60 minutes / 10 minutes = 144
+
+    for (let i = 0; i < intervalsPerDay; i++) {
       const pointer = getRandomPointer();
+      const minutes = (i * 10) % 60;
+      const hours = Math.floor((i * 10) / 60);
+
       const scheduleTime = new Date();
-      scheduleTime.setHours(hour, 0, 0, 0);
-      
+      scheduleTime.setHours(hours, minutes, 0, 0);
+
       // If the time has passed today, schedule for tomorrow
       if (scheduleTime <= now) {
         scheduleTime.setDate(scheduleTime.getDate() + 1);
       }
 
       notifications.push({
-        id: index + 1,
+        id: i + 1,
         title: 'Self-Inquiry Pointer',
         body: pointer.text,
         schedule: {
           on: {
-            hour: hour,
-            minute: 0
+            hour: hours,
+            minute: minutes
           },
           allowWhileIdle: true,
           repeats: true,
@@ -59,10 +63,10 @@ export const scheduleDailyPointerNotifications = async () => {
         actionTypeId: '',
         extra: null,
       });
-    });
+    }
 
     await LocalNotifications.schedule({ notifications });
-    console.log('Scheduled 4 daily pointer notifications');
+    console.log('Scheduled notifications every 10 minutes (144 per day)');
     return true;
   } catch (error) {
     console.error('Error scheduling notifications:', error);
@@ -72,7 +76,8 @@ export const scheduleDailyPointerNotifications = async () => {
 
 export const cancelAllNotifications = async () => {
   try {
-    await LocalNotifications.cancel({ notifications: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }] });
+    const notificationsToCancel = Array.from({ length: 144 }, (_, i) => ({ id: i + 1 }));
+    await LocalNotifications.cancel({ notifications: notificationsToCancel });
     console.log('Cancelled all notifications');
   } catch (error) {
     console.error('Error cancelling notifications:', error);

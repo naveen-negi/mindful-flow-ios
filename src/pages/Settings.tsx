@@ -132,10 +132,10 @@ const Settings = () => {
                   <div className="flex-1">
                     <Label htmlFor="notifications" className="text-foreground">Zen Koans & Nonduality Pointers</Label>
                     <p className="text-sm text-muted-foreground mt-1">
-                      Receive 4 daily contemplative messages—nonduality pointers and zen koans to ponder throughout your day
+                      Receive contemplative messages every 10 minutes—nonduality pointers and zen koans to ponder throughout your day
                     </p>
                     <p className="text-xs text-muted-foreground/80 mt-2 italic">
-                      Delivered at 8 AM, 12 PM, 4 PM, and 8 PM
+                      Delivered every 10 minutes, 24/7
                     </p>
                   </div>
                   <Switch
