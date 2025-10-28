@@ -58,6 +58,8 @@ export const scheduleDailyPointerNotifications = async () => {
           allowWhileIdle: true,
           repeats: true,
         },
+        smallIcon: 'ic_launcher',
+        iconColor: '#8B5CF6',
         sound: undefined,
         attachments: undefined,
         actionTypeId: '',
