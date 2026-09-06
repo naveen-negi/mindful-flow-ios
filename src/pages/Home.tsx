@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { BreathingRatio } from '@/types/breathing';
 import { getSettings, saveSettings, calculateNextRatio } from '@/utils/storage';
-import { Play, Settings, BarChart3, BookOpen } from 'lucide-react';
+import { Play, Settings, BarChart3, BookOpen, Lock } from 'lucide-react';
 import { usePro } from '@/contexts/ProProvider';
 import { FREE_ROUNDS } from '@/lib/pro';
 import ProTag from '@/components/ProTag';
@@ -87,10 +87,12 @@ const Home = () => {
                 <Button
                   onClick={() => (isPro ? setShowCustomInput(true) : navigate('/pro'))}
                   variant={showCustomInput ? "default" : "outline"}
-                  className="h-12 text-sm font-semibold gap-1.5"
+                  className="h-12 px-2 text-sm font-semibold gap-1"
+                  aria-label={isPro ? 'Custom duration' : 'Custom duration (Pro)'}
                 >
+                  {/* A lock, not the Pro pill: the pill does not fit a quarter-width cell on a phone */}
+                  {!isPro && <Lock className="h-3.5 w-3.5 text-primary" strokeWidth={2} />}
                   Custom
-                  {!isPro && <ProTag />}
                 </Button>
               </div>
 
