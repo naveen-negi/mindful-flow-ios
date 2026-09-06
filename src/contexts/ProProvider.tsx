@@ -31,8 +31,17 @@ interface ProContextValue {
 
 const ProContext = createContext<ProContextValue | null>(null);
 
-// Browser-only switch for styling Pro screens without a store: localStorage.pranayama_pro_override = "1"
+// Browser-only switches (dev builds): localStorage.pranayama_pro_override = "1" renders the Pro state;
+// localStorage.pranayama_store_preview = "1" renders the paywall as if the store were reachable (for screenshots).
 const DEV_OVERRIDE_KEY = 'pranayama_pro_override';
+const DEV_STORE_PREVIEW_KEY = 'pranayama_store_preview';
+const devFlag = (key: string): boolean => {
+  try {
+    return import.meta.env.DEV && localStorage.getItem(key) === '1';
+  } catch {
+    return false;
+  }
+};
 
 const describeError = (err: unknown): string => {
   const message = (err as { message?: string })?.message ?? '';
@@ -41,6 +50,7 @@ const describeError = (err: unknown): string => {
 
 export const ProProvider = ({ children }: { children: ReactNode }) => {
   const storeAvailable = isStoreAvailable();
+  const storePreview = !storeAvailable && devFlag(DEV_STORE_PREVIEW_KEY);
   const [status, setStatus] = useState<ProStatus>({ kind: 'free' });
   const [plans, setPlans] = useState<Plan[]>(FALLBACK_PLANS);
   const [loading, setLoading] = useState<boolean>(storeAvailable);
@@ -54,7 +64,7 @@ export const ProProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!storeAvailable) {
-      if (import.meta.env.DEV && localStorage.getItem(DEV_OVERRIDE_KEY) === '1') {
+      if (devFlag(DEV_OVERRIDE_KEY)) {
         setStatus({ kind: 'active', renewsAt: null, willRenew: true });
       }
       return;
@@ -119,8 +129,8 @@ export const ProProvider = ({ children }: { children: ReactNode }) => {
   }, [applyCustomerInfo]);
 
   const value = useMemo<ProContextValue>(
-    () => ({ status, isPro, plans, storeAvailable, loading, error, purchase, restore, manageUrl }),
-    [status, isPro, plans, storeAvailable, loading, error, purchase, restore, manageUrl],
+    () => ({ status, isPro, plans, storeAvailable: storeAvailable || storePreview, loading, error, purchase, restore, manageUrl }),
+    [status, isPro, plans, storeAvailable, storePreview, loading, error, purchase, restore, manageUrl],
   );
 
   return <ProContext.Provider value={value}>{children}</ProContext.Provider>;
