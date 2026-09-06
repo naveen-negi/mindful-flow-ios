@@ -1,51 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useNavigate } from "react-router-dom";
-import { X, ChevronLeft, FileText } from "lucide-react";
+import ScreenHeader from "@/components/ScreenHeader";
+import ChapterFooter from "@/components/ChapterFooter";
+import { FileText } from "lucide-react";
 
 const LearnFAQ = () => {
-  const navigate = useNavigate();
-
   return (
-    <div className="min-h-screen bg-background pb-safe">
-      {/* Navigation controls */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur border-t" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
-        <div className="container max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Button
-            variant="default"
-            onClick={() => navigate("/learn/safety")}
-            size="sm"
-          >
-            <ChevronLeft className="h-4 w-4 mr-1" />
-            Previous
-          </Button>
-          
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/learn")}
-            size="icon"
-            className="h-9 w-9"
-          >
-            <X className="h-4 w-4" />
-          </Button>
+    <div className="min-h-screen zen-texture pb-safe">
+      <ScreenHeader backTo="/learn" backLabel="Learn" title="Frequently Asked Questions" subtitle="Common questions answered" />
 
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/learn")}
-            size="sm"
-          >
-            Menu
-          </Button>
-        </div>
-      </div>
-
-      <div className="container max-w-4xl mx-auto px-4 pt-safe pb-24">
-        <div className="mb-6 pt-4">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2">Frequently Asked Questions</h1>
-          <p className="text-sm text-muted-foreground">Common questions answered</p>
-        </div>
-
+      <div className="container max-w-4xl mx-auto px-4">
         <div className="space-y-6">
           <Card>
             <CardHeader>
@@ -161,6 +125,8 @@ const LearnFAQ = () => {
             </CardContent>
           </Card>
         </div>
+
+        <ChapterFooter />
       </div>
     </div>
   );

@@ -6,7 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 import { getSettings, saveSettings } from '@/utils/storage';
-import { ChevronLeft, Save, Bell } from 'lucide-react';
+import { Save, Bell } from 'lucide-react';
+import ScreenHeader from '@/components/ScreenHeader';
 import { toast } from 'sonner';
 import { 
   requestNotificationPermission, 
@@ -57,19 +58,9 @@ const Settings = () => {
   };
 
   return (
-    <div className="min-h-screen zen-texture p-6">
-      <div className="mx-auto max-w-2xl">
-        <div className="mb-6 flex items-center gap-4">
-          <Button
-            onClick={() => navigate('/')}
-            variant="ghost"
-            size="icon"
-            className="text-foreground"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Button>
-          <h1 className="text-2xl font-bold text-foreground">Settings</h1>
-        </div>
+    <div className="min-h-screen zen-texture pb-safe">
+      <ScreenHeader backTo="/" backLabel="Home" title="Settings" />
+      <div className="mx-auto max-w-2xl px-4">
 
         <Card className="border-primary/20 bg-card/50 p-6 backdrop-blur-sm">
           <div className="space-y-6">

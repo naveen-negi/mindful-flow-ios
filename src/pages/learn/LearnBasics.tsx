@@ -1,51 +1,14 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
-import { X, ChevronLeft, ChevronRight, BookOpen, Heart, TrendingUp } from "lucide-react";
+import ScreenHeader from "@/components/ScreenHeader";
+import ChapterFooter from "@/components/ChapterFooter";
+import { BookOpen, Heart, TrendingUp } from "lucide-react";
 
 const LearnBasics = () => {
-  const navigate = useNavigate();
-
   return (
-    <div className="min-h-screen bg-background pb-safe">
-      {/* Navigation controls */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur border-t" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
-        <div className="container max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/learn")}
-            size="sm"
-          >
-            <ChevronLeft className="h-4 w-4 mr-1" />
-            Menu
-          </Button>
-          
-          <Button
-            variant="ghost"
-            onClick={() => navigate(-1)}
-            size="icon"
-            className="h-9 w-9"
-          >
-            <X className="h-4 w-4" />
-          </Button>
+    <div className="min-h-screen zen-texture pb-safe">
+      <ScreenHeader backTo="/learn" backLabel="Learn" title="Basics of Sahita Kumbhaka" subtitle="Understanding the fundamentals" />
 
-          <Button
-            variant="default"
-            onClick={() => navigate("/learn/tradition")}
-            size="sm"
-          >
-            Next
-            <ChevronRight className="h-4 w-4 ml-1" />
-          </Button>
-        </div>
-      </div>
-
-      <div className="container max-w-4xl mx-auto px-4 pt-safe pb-24">
-        <div className="mb-6 pt-4">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2">Basics of Sahita Kumbhaka</h1>
-          <p className="text-sm text-muted-foreground">Understanding the fundamentals</p>
-        </div>
-
+      <div className="container max-w-4xl mx-auto px-4">
         <div className="space-y-6">
           <Card>
             <CardHeader>
@@ -257,6 +220,8 @@ const LearnBasics = () => {
             </CardContent>
           </Card>
         </div>
+
+        <ChapterFooter />
       </div>
     </div>
   );

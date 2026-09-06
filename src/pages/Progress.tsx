@@ -1,12 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { getPracticeSessions } from '@/utils/storage';
-import { ChevronLeft, Calendar, TrendingUp } from 'lucide-react';
+import { Calendar, TrendingUp } from 'lucide-react';
+import ScreenHeader from '@/components/ScreenHeader';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay } from 'date-fns';
 
 const Progress = () => {
-  const navigate = useNavigate();
   const sessions = getPracticeSessions();
 
   const now = new Date();
@@ -29,20 +27,9 @@ const Progress = () => {
     : { inhale: 4, hold: 16, exhale: 8 };
 
   return (
-    <div className="min-h-screen zen-texture p-6 pt-safe">
-      <div className="mx-auto max-w-2xl">
-        <div className="mb-6 flex items-center gap-4">
-          <Button
-            onClick={() => navigate('/')}
-            variant="ghost"
-            size="icon"
-            className="text-foreground"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Button>
-          <h1 className="text-2xl font-bold text-foreground">Your Progress</h1>
-        </div>
-
+    <div className="min-h-screen zen-texture pb-safe">
+      <ScreenHeader backTo="/" backLabel="Home" title="Your Progress" />
+      <div className="mx-auto max-w-2xl px-4">
         <div className="mb-6 grid gap-4 sm:grid-cols-2">
           <Card className="border-primary/20 bg-card/50 p-6 backdrop-blur-sm">
             <div className="mb-2 flex items-center gap-2 text-muted-foreground">

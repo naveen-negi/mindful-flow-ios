@@ -149,6 +149,15 @@ const Practice = () => {
     navigate('/');
   };
 
+  // Leaving during a countdown: only record a session if a round was actually completed
+  const handleExitCountdown = () => {
+    if (currentRound > 0) {
+      handleEnd();
+    } else {
+      navigate('/');
+    }
+  };
+
   const handleStartCountdown = () => {
     setCountdown(3);
     setIsCountingDown(true);
@@ -172,14 +181,36 @@ const Practice = () => {
     <div className="zen-texture flex min-h-screen flex-col items-center justify-between p-6 pb-safe pt-safe">
       {/* Countdown screen */}
       {isCountingDown && countdown !== null && (
-        <div className="flex flex-col items-center justify-center flex-1 w-full">
-          <div className="text-center animate-in fade-in-50 duration-300">
-            <div className="text-9xl font-serif font-bold text-primary mb-4 animate-in zoom-in-50 duration-500">
-              {countdown}
+        <div className="flex flex-col items-center justify-center gap-8 flex-1 w-full max-w-md">
+          {/* Same layout and top row as the active view, so Exit never moves when breathing begins */}
+          <div className="flex justify-between items-center w-full mb-8">
+            <Button
+              onClick={handleExitCountdown}
+              variant="destructive"
+              size="sm"
+              className="rounded-lg font-sans"
+            >
+              <X className="mr-1 h-4 w-4" />
+              Exit Session
+            </Button>
+            <div className="text-center">
+              <div className="text-xs font-sans text-muted-foreground mb-1 uppercase tracking-wider">Round</div>
+              <div className="text-3xl font-serif font-semibold text-primary">
+                {currentRound + 1} / {rounds}
+              </div>
             </div>
-            <p className="text-xl text-muted-foreground font-sans">
-              Get ready...
-            </p>
+          </div>
+
+          {/* Same height as the breathing circle block (ring + gap + caption) */}
+          <div className="flex h-[28rem] flex-col items-center justify-center">
+            <div className="text-center animate-in fade-in-50 duration-300">
+              <div className="text-9xl font-serif font-bold text-primary mb-4 animate-in zoom-in-50 duration-500">
+                {countdown}
+              </div>
+              <p className="text-xl text-muted-foreground font-sans">
+                Get ready...
+              </p>
+            </div>
           </div>
         </div>
       )}

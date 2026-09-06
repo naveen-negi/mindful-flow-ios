@@ -11,6 +11,7 @@ import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
 import LearnIndex from "./pages/learn/LearnIndex";
+import LearnAbout from "./pages/learn/LearnAbout";
 import LearnBasics from "./pages/learn/LearnBasics";
 import LearnTradition from "./pages/learn/LearnTradition";
 import LearnScience from "./pages/learn/LearnScience";
@@ -34,6 +35,7 @@ function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/learn" element={<LearnIndex />} />
+            <Route path="/learn/about" element={<LearnAbout />} />
             <Route path="/learn/basics" element={<LearnBasics />} />
             <Route path="/learn/tradition" element={<LearnTradition />} />
             <Route path="/learn/science" element={<LearnScience />} />
