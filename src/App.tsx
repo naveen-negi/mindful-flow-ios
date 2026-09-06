@@ -17,6 +17,8 @@ import LearnTradition from "./pages/learn/LearnTradition";
 import LearnScience from "./pages/learn/LearnScience";
 import LearnSafety from "./pages/learn/LearnSafety";
 import LearnFAQ from "./pages/learn/LearnFAQ";
+import Pro from "./pages/Pro";
+import { ProProvider } from "./contexts/ProProvider";
 
 const queryClient = new QueryClient();
 
@@ -25,10 +27,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <BrowserRouter>
+          <ProProvider>
           <Toaster />
           <Sonner />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/pro" element={<Pro />} />
             <Route path="/practice" element={<Practice />} />
             <Route path="/session-complete" element={<SessionComplete />} />
             <Route path="/progress" element={<Progress />} />
@@ -43,6 +47,7 @@ function App() {
             <Route path="/learn/faq" element={<LearnFAQ />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </ProProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

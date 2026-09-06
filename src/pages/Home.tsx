@@ -7,9 +7,15 @@ import { Label } from '@/components/ui/label';
 import { BreathingRatio } from '@/types/breathing';
 import { getSettings, saveSettings, calculateNextRatio } from '@/utils/storage';
 import { Play, Settings, BarChart3, BookOpen } from 'lucide-react';
+import { usePro } from '@/contexts/ProProvider';
+import { FREE_ROUNDS } from '@/lib/pro';
+import ProTag from '@/components/ProTag';
+
+const roundOptions = [5, 10, 15, 20];
 
 const Home = () => {
   const navigate = useNavigate();
+  const { isPro } = usePro();
   const settings = getSettings();
   const [inhale, setInhale] = useState(settings.defaultRatio.inhale);
   const [rounds, setRounds] = useState(10);
@@ -79,11 +85,12 @@ const Home = () => {
                   </Button>
                 ))}
                 <Button
-                  onClick={() => setShowCustomInput(true)}
+                  onClick={() => (isPro ? setShowCustomInput(true) : navigate('/pro'))}
                   variant={showCustomInput ? "default" : "outline"}
-                  className="h-12 text-sm font-semibold"
+                  className="h-12 text-sm font-semibold gap-1.5"
                 >
                   Custom
+                  {!isPro && <ProTag />}
                 </Button>
               </div>
 
@@ -127,6 +134,27 @@ const Home = () => {
               </div>
             </div>
 
+            <div>
+              <Label className="text-foreground mb-3 flex items-center gap-2">
+                Rounds
+                {!isPro && <ProTag />}
+              </Label>
+              <div className="grid grid-cols-4 gap-2">
+                {roundOptions.map((count) => {
+                  const gated = !isPro && count !== FREE_ROUNDS;
+                  return (
+                    <Button
+                      key={count}
+                      onClick={() => (gated ? navigate('/pro') : setRounds(count))}
+                      variant={rounds === count ? "default" : "outline"}
+                      className={`h-10 text-sm font-semibold ${gated ? 'text-muted-foreground' : ''}`}
+                    >
+                      {count}
+                    </Button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
           <Button

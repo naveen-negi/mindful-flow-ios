@@ -7,14 +7,19 @@ import PointerView from '@/components/PointerView';
 import { useBreathingTimer } from '@/hooks/useBreathingTimer';
 import { BreathingRatio } from '@/types/breathing';
 import { savePracticeSession, getSettings } from '@/utils/storage';
-import { getRandomPointer } from '@/data/pointers';
+import { getRandomPointer, selfInquiryPointers } from '@/data/pointers';
 import { Pause, Play, X } from 'lucide-react';
 import { KeepAwake } from '@capacitor-community/keep-awake';
+import { usePro } from '@/contexts/ProProvider';
+import { freePointerIndices } from '@/lib/pro';
 
 const Practice = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const settings = getSettings();
+  const { isPro } = usePro();
+  // Free tier draws from a fixed, evenly spread subset of the library
+  const allowedPointers = isPro ? undefined : freePointerIndices(selfInquiryPointers.length);
   
   const { ratio, rounds } = location.state as { ratio: BreathingRatio; rounds: number } || {
     ratio: settings.defaultRatio,
@@ -45,7 +50,7 @@ const Practice = () => {
   // Show pointer when paused between rounds
   useEffect(() => {
     if (isPausedBetweenRounds) {
-      const { text, index } = getRandomPointer(shownPointerIndices);
+      const { text, index } = getRandomPointer(shownPointerIndices, allowedPointers);
       setCurrentPointer(text);
       setShownPointerIndices(prev => [...prev, index]);
     }

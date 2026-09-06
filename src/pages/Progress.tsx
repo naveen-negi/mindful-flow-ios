@@ -1,13 +1,24 @@
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { getPracticeSessions } from '@/utils/storage';
-import { Calendar, TrendingUp } from 'lucide-react';
+import { Calendar, TrendingUp, Lock } from 'lucide-react';
 import ScreenHeader from '@/components/ScreenHeader';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay } from 'date-fns';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, subDays, startOfDay } from 'date-fns';
+import { usePro } from '@/contexts/ProProvider';
+import { FREE_HISTORY_DAYS } from '@/lib/pro';
 
 const Progress = () => {
-  const sessions = getPracticeSessions();
+  const navigate = useNavigate();
+  const { isPro } = usePro();
+  const allSessions = getPracticeSessions();
 
   const now = new Date();
+  // Free tier sees the last FREE_HISTORY_DAYS days; everything older stays on device, just out of view
+  const historyStart = startOfDay(subDays(now, FREE_HISTORY_DAYS - 1));
+  const sessions = isPro ? allSessions : allSessions.filter(s => new Date(s.date) >= historyStart);
+  const hiddenSessions = allSessions.length - sessions.length;
+
   const monthStart = startOfMonth(now);
   const monthEnd = endOfMonth(now);
   const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
@@ -16,14 +27,13 @@ const Progress = () => {
     return sessions.filter(s => isSameDay(new Date(s.date), day));
   };
 
-  const totalSessions = sessions.length;
   const thisMonthSessions = sessions.filter(s => {
     const sessionDate = new Date(s.date);
     return sessionDate >= monthStart && sessionDate <= monthEnd;
   }).length;
 
-  const currentRatio = sessions.length > 0 
-    ? sessions[sessions.length - 1].ratio 
+  const currentRatio = allSessions.length > 0
+    ? allSessions[allSessions.length - 1].ratio
     : { inhale: 4, hold: 16, exhale: 8 };
 
   return (
@@ -34,7 +44,7 @@ const Progress = () => {
           <Card className="border-primary/20 bg-card/50 p-6 backdrop-blur-sm">
             <div className="mb-2 flex items-center gap-2 text-muted-foreground">
               <Calendar className="h-4 w-4" />
-              <span className="text-sm">This Month</span>
+              <span className="text-sm">{isPro ? 'This Month' : `Last ${FREE_HISTORY_DAYS} Days`}</span>
             </div>
             <div className="text-3xl font-bold text-foreground">{thisMonthSessions}</div>
             <div className="text-sm text-muted-foreground">sessions</div>
@@ -67,7 +77,8 @@ const Progress = () => {
               const daySessions = getSessionsForDay(day);
               const hasSession = daySessions.length > 0;
               const isToday = isSameDay(day, now);
-              
+              const outOfView = !isPro && day < historyStart;
+
               return (
                 <div
                   key={day.toISOString()}
@@ -75,7 +86,7 @@ const Progress = () => {
                     hasSession
                       ? 'bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/30'
                       : 'bg-muted/30 text-muted-foreground'
-                  } ${isToday ? 'ring-2 ring-accent' : ''}`}
+                  } ${isToday ? 'ring-2 ring-accent' : ''} ${outOfView ? 'opacity-40' : ''}`}
                 >
                   <div className="flex h-full items-center justify-center">
                     {format(day, 'd')}
@@ -88,6 +99,26 @@ const Progress = () => {
             })}
           </div>
         </Card>
+
+        {!isPro && (
+          <Card className="mb-6 border bg-card p-6 rounded-2xl" style={{ boxShadow: 'var(--shadow-card)' }}>
+            <div className="flex items-start gap-4">
+              <Lock className="mt-1 h-5 w-5 shrink-0 text-primary" strokeWidth={1.75} />
+              <div className="flex-1">
+                <p className="font-serif text-lg font-semibold text-foreground">Your full history</p>
+                <p className="mt-1 text-sm font-sans text-muted-foreground">
+                  {hiddenSessions > 0
+                    ? `${hiddenSessions} earlier ${hiddenSessions === 1 ? 'session is' : 'sessions are'} saved on this device. `
+                    : ''}
+                  Pro shows every session, month by month.
+                </p>
+                <Button onClick={() => navigate('/pro')} variant="outline" className="mt-4 rounded-xl">
+                  See Pro
+                </Button>
+              </div>
+            </div>
+          </Card>
+        )}
 
         <Card className="border-primary/20 bg-card/50 p-6 backdrop-blur-sm">
           <h2 className="mb-4 text-lg font-semibold text-foreground">Recent Sessions</h2>

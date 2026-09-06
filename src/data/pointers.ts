@@ -432,14 +432,17 @@ export const selfInquiryPointers = [
   "You are already 'I am'—that which you have always been. What remains undone?",
 ];
 
-export const getRandomPointer = (excludeIndices: number[] = []): { text: string; index: number } => {
-  const availableIndices = selfInquiryPointers
-    .map((_, i) => i)
-    .filter(i => !excludeIndices.includes(i));
+export const getRandomPointer = (
+  excludeIndices: number[] = [],
+  // Free tier passes the indices it may draw from; Pro leaves it undefined for the whole library
+  allowedIndices?: number[],
+): { text: string; index: number } => {
+  const pool = allowedIndices ?? selfInquiryPointers.map((_, i) => i);
+  const availableIndices = pool.filter(i => !excludeIndices.includes(i));
 
   if (availableIndices.length === 0) {
     // Reset if all pointers have been shown
-    const randomIndex = Math.floor(Math.random() * selfInquiryPointers.length);
+    const randomIndex = pool[Math.floor(Math.random() * pool.length)];
     return { text: selfInquiryPointers[randomIndex], index: randomIndex };
   }
 
