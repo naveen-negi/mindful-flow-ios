@@ -168,6 +168,32 @@ const Home = () => {
           </Button>
         </Card>
 
+        <Card
+          onClick={() => navigate('/bandha')}
+          className="cursor-pointer border bg-card p-5 rounded-2xl transition-colors hover:bg-card/70"
+          style={{ boxShadow: 'var(--shadow-card)' }}
+        >
+          <div className="flex items-baseline gap-2">
+            <h2 className="font-serif text-lg font-semibold text-foreground">Bandha &amp; mudrā</h2>
+            <span className="rounded-full bg-primary/15 px-2 py-0.5 font-sans text-[10px] font-semibold uppercase tracking-wider text-primary">
+              New
+            </span>
+          </div>
+          <p className="mt-1.5 text-sm font-sans leading-relaxed text-muted-foreground">
+            Locks practice, kept separate from the breathing timer
+          </p>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate('/krama');
+            }}
+            className="mt-3 font-sans text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            The order of practice
+          </button>
+        </Card>
+
         <div className="grid grid-cols-2 gap-3">
           <Button
             onClick={() => navigate('/progress')}
